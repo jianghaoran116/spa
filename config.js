@@ -7,7 +7,7 @@ module.exports = {
   // Deploy
   public_path_dev: '/home/',
   public_path_prod: '//www.curlyhair.cn/',
-  port: 8686,
+  port: 80,
   plugin_url: '',
   ga_id: '',
   fb_id: '',
