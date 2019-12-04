@@ -19,18 +19,14 @@ import './index.styl';
 )
 class NoMatch extends Component {
   render() {
-    console.log(this.props);
     return (
-      <div>
-        404
+      <div styleName="no-match">
         <img
           src={noMatchImg}
           alt="404"
           title="404"
         />
-        <div styleName="no-match">
-          404
-        </div>
+        <div styleName="no-match-content"> </div>
       </div>
     );
   }
