@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === 'production') {
 function init() {
   const app = express();
 
-  app.use(express.static(staticDir, {
+  app.use(`${publicPath}:${config.port}`,express.static(staticDir, {
     dotfiles: 'ignore',
     etag: false,
     extensions: ['htm', 'html'],
