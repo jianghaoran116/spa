@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === 'production') {
 function init() {
   const app = express();
 
-  app.use(config.public_path_dev, express.static(staticDir));
+  app.use(publicPath, express.static(staticDir));
 
   app.all('*', (req, res) => {
     utils.readContent(templateRootDir, 'index.html')
