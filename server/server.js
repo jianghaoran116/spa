@@ -4,17 +4,14 @@ const utils = require('./utils');
 
 let staticDir = '';
 let templateRootDir = '';
-let publicPath = '';
 
 if (process.env.NODE_ENV === 'production') {
   staticDir = config.static_dir_prod;
   templateRootDir = config.template_root_dir_prod;
-  publicPath = config.public_path_prod;
 } else {
   staticDir = config.static_dir_dev;
   templateRootDir = config.template_root_dir_dev;
-  publicPath = config.public_path_dev;
-};
+}
 
 function init() {
   const app = express();
@@ -26,9 +23,9 @@ function init() {
     index: false,
     maxAge: '1d',
     redirect: false,
-    setHeaders: function (res, path, stat) {
-      res.set('x-timestamp', Date.now())
-    }
+    setHeaders: (res) => {
+      res.set('x-timestamp', Date.now());
+    },
   }));
 
   app.all('*', (req, res) => {
