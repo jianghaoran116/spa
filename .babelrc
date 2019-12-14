@@ -25,6 +25,15 @@
 					"syntax": "postcss-styl"
 				}
 			}
-		}]
+		}],
+		[
+			"import",
+			{ 
+				"libraryName": "antd-mobile", 
+				"libraryDirectory": "lib",
+				"style": "css"
+			},
+			"antd-mobile"
+		]
 	]
 }

@@ -3,23 +3,29 @@
  * @author haoran
  */
 
-import React, { Component } from 'react';
+import React, { Component, Suspense, lazy } from 'react';
 import {
   BrowserRouter as Router,
   Route,
   Switch,
 } from 'react-router-dom';
-import Detail from 'view/detail/';
-import NoMatch from 'view/404/';
+import Loading from 'view/loading/';
+
+const Detail = lazy(() => import(/* webpackChunkName:'detail-chunk' */'view/detail/'));
+const NoMatch = lazy(() => import(/* webpackChunkName:'404-chunk' */'view/404/'));
 
 class Index extends Component {
   render() {
     return (
       <Router>
-        <Switch>
-          <Route path="/detail/:id" component={Detail} />
-          <Route path="*" component={NoMatch} />
-        </Switch>
+        <Suspense
+          fallback={<Loading />}
+        >
+          <Switch>
+            <Route path="/detail" component={Detail} />
+            <Route path="*" component={NoMatch} />
+          </Switch>
+        </Suspense>
       </Router>
     );
   }
