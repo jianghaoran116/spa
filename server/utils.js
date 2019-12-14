@@ -9,6 +9,7 @@ const fs = require('fs');
  * 返回 thenable
  */
 function readContent(ROOT_DIR, path) {
+  console.log(ROOT_DIR + path);
   return new Promise((resolve, reject) => {
     fs.readFile(ROOT_DIR + path, 'utf-8', (err, content) => {
       if (err) {
