@@ -28,7 +28,7 @@ function init() {
     },
   }));
 
-  app.get('/*?', (req, res) => {
+  app.all('*', (req, res) => {
     utils.readContent(templateRootDir, 'index.html')
       .then((content) => {
         res.send(content);
