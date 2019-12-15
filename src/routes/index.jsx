@@ -9,7 +9,7 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-import Loading from 'view/loading/';
+// import Loading from 'view/loading/';
 
 const Detail = lazy(() => import(/* webpackChunkName:'detail-chunk' */'view/detail/'));
 const Spa = lazy(() => import(/* webpackChunkName:'spa-chunk' */'view/spa/'));
@@ -20,7 +20,7 @@ class Index extends Component {
     return (
       <Router>
         <Suspense
-          fallback={<Loading />}
+          fallback={<div>loading...</div>}
         >
           <Switch>
             <Route path="/detail" component={Detail} />
