@@ -16,13 +16,13 @@ const prodConfig = {
     rules: [
       {
         test: /\.css$/,
+        exclude: /node_modules/,
         use: [
           'css-loader',
           'postcss-loader',
         ],
       }, {
         test: /\.styl$/,
-        exclude: /node_modules/,
         use: [
           {
             loader: MiniCssExtractPlugin.loader,

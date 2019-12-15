@@ -11,6 +11,7 @@ import Index from './routes/index';
 
 import './styles/reset.styl';
 import './styles/app.styl';
+import 'antd-mobile/lib/date-picker/style/css';
 
 const store = configureStore();
 
