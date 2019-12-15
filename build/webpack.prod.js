@@ -1,7 +1,7 @@
 const merge = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+// const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const imageminPngquant = require('imagemin-pngquant');
 const imageminMozjpeg = require('imagemin-mozjpeg');
 const commonConfig = require('./webpack.common.js');
@@ -15,9 +15,21 @@ const prodConfig = {
   module: {
     rules: [
       {
-        test: /\.styl$/,
+        test: /\.css$/,
         use: [
           MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader',
+        ],
+      }, {
+        test: /\.styl$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: true,
+            },
+          },
           {
             loader: 'css-loader',
             options: {
@@ -28,13 +40,6 @@ const prodConfig = {
           },
           'postcss-loader',
           'stylus-loader',
-        ],
-      }, {
-        test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          'postcss-loader',
         ],
       }, {
         test: /\.(gif|png|jpg|mp3|mp4|obj|mtl|glb)$/,
@@ -67,7 +72,7 @@ const prodConfig = {
     ],
   },
   optimization: {
-    minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
+    minimizer: [new TerserJSPlugin({})],
   },
   output: {
     filename: '[name].[contenthash].js',
