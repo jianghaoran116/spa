@@ -16,9 +16,7 @@ const prodConfig = {
     rules: [
       {
         test: /\.css$/,
-        exclude: /node_modules/,
         use: [
-          MiniCssExtractPlugin.loader,
           'css-loader',
           'postcss-loader',
         ],
