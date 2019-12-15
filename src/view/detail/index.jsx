@@ -10,6 +10,7 @@ import {
   Flex,
   Picker,
 } from 'antd-mobile';
+import 'antd-mobile/lib/date-picker/style/css';
 
 const { CheckboxItem, AgreeItem } = Checkbox;
 
