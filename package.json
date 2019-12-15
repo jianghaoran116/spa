@@ -1,10 +1,10 @@
 {
   "name": "m-report",
   "sideEffects": [
-    "*.css",
-    "*.scss",
-    "*.less",
-    "*.styl"
+    "**/*.css",
+    "**/*.scss",
+    "**/*.less",
+    "**/*.styl"
   ],
   "version": "1.0.0",
   "description": "",

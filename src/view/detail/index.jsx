@@ -10,7 +10,6 @@ import {
   Flex,
   Picker,
 } from 'antd-mobile';
-import 'antd-mobile/dist/antd-mobile.css';
 
 const { CheckboxItem, AgreeItem } = Checkbox;
 
