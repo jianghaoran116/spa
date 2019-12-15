@@ -18,9 +18,7 @@ const NoMatch = lazy(() => import(/* webpackChunkName:'404-chunk' */'view/404/')
 class Index extends Component {
   render() {
     return (
-      <Router
-        basename="/spa"
-      >
+      <Router>
         <Suspense
           fallback={<Loading />}
         >
