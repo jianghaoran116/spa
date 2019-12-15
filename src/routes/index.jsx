@@ -12,6 +12,7 @@ import {
 import Loading from 'view/loading/';
 
 const Detail = lazy(() => import(/* webpackChunkName:'detail-chunk' */'view/detail/'));
+const Spa = lazy(() => import(/* webpackChunkName:'spa-chunk' */'view/spa/'));
 const NoMatch = lazy(() => import(/* webpackChunkName:'404-chunk' */'view/404/'));
 
 class Index extends Component {
@@ -23,6 +24,7 @@ class Index extends Component {
         >
           <Switch>
             <Route path="/detail" component={Detail} />
+            <Route path="/spa" component={Spa} />
             <Route path="*" component={NoMatch} />
           </Switch>
         </Suspense>
