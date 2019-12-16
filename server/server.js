@@ -1,6 +1,7 @@
 const express = require('express');
 const config = require('../config.js');
 const utils = require('./utils');
+const contentRouter = require('./content');
 
 let staticDir = '';
 let templateRootDir = '';
@@ -27,6 +28,8 @@ function init() {
       res.set('x-timestamp', Date.now());
     },
   }));
+
+  app.use('/list', contentRouter);
 
   app.all('*', (req, res) => {
     utils.readContent(templateRootDir, 'index.html')
