@@ -15,21 +15,9 @@ const prodConfig = {
   module: {
     rules: [
       {
-        test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          'postcss-loader',
-        ],
-      }, {
         test: /\.styl$/,
         use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              hmr: true,
-            },
-          },
+          MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
             options: {
@@ -40,6 +28,13 @@ const prodConfig = {
           },
           'postcss-loader',
           'stylus-loader',
+        ],
+      }, {
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader',
         ],
       }, {
         test: /\.(gif|png|jpg|mp3|mp4|obj|mtl|glb)$/,

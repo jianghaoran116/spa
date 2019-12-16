@@ -8,16 +8,19 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const config = require('../config');
 
 let publicPath = ''; // HtmlWebpackPlugin给ejs模版设置路径
+let rootPath = ''; // 静态根html路径
 
 if (process.env.NODE_ENV === 'production') {
   publicPath = config.public_path_prod;
+  rootPath = config.template_root_dir_prod;
 } else {
   publicPath = config.public_path_dev;
+  rootPath = config.template_root_dir_dev;
 }
 
 const plugins = [
   new HtmlWebpackPlugin({
-    filename: path.resolve(__dirname, '../dist/html/index.html'),
+    filename: `${rootPath}/index.html`,
     template: path.resolve(__dirname, '../src/html-templates/app.ejs'),
     page: config.page,
     public_path: publicPath,
@@ -28,8 +31,8 @@ const plugins = [
   new MiniCssExtractPlugin({
     // Options similar to the same options in webpackOptions.output
     // both options are optional
-    filename: '[name].css',
-    chunkFilename: '[id].css',
+    filename: '[name].[chunkhash].css',
+    chunkFilename: '[id].[chunkhash].css',
   }),
   new webpack.ProvidePlugin({
     $: 'jquery',
@@ -103,9 +106,9 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'], // 样式文件后缀不建议配置
     alias: {
-      view: path.resolve(__dirname, '../src/view'),
-      components: path.resolve(__dirname, '../src/components'),
-      imagespath: path.resolve(__dirname, '../src/styles/images'),
+      '@/view': path.resolve(__dirname, '../src/view'),
+      '@/components': path.resolve(__dirname, '../src/components'),
+      '@/imagespath': path.resolve(__dirname, '../src/styles/images'),
     },
     // mainFiles: ['index'], // 路径下的默认文件
   },

@@ -4,18 +4,17 @@
  */
 
 import React, { Component } from 'react';
-// import { connect } from 'react-redux';
-// import Index from 'components/404/index';
-// import { actions } from './redux';
+import { connect } from 'react-redux';
+import { actions } from './redux';
 import './index.styl';
 
-// @connect(
-//   state => ({
-//     loading: state.NoMatch.list.loading,
-//   }), {
-//     ...actions,
-//   },
-// )
+@connect(
+  state => ({
+    loading: state.NoMatch.list.loading,
+  }), {
+    ...actions,
+  },
+)
 class NoMatch extends Component {
   render() {
     return (

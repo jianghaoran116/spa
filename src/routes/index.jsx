@@ -9,22 +9,30 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-// import Loading from 'view/loading/';
+import Loading from '@/view/loading';
+import config from '../../config';
 
-const Detail = lazy(() => import(/* webpackChunkName:'detail-chunk' */'view/detail/'));
-const Spa = lazy(() => import(/* webpackChunkName:'spa-chunk' */'view/spa/'));
-const NoMatch = lazy(() => import(/* webpackChunkName:'404-chunk' */'view/404/'));
+const Detail = lazy(() => import(/* webpackChunkName:'detail-chunk' */'@/view/detail/'));
+const NoMatch = lazy(() => import(/* webpackChunkName:'404-chunk' */'@/view/404/'));
+
+let basename = '';
+if (process.env.NODE_ENV === 'production') {
+  basename = config.base_name_prod;
+} else {
+  basename = config.base_name_dev;
+}
 
 class Index extends Component {
   render() {
     return (
-      <Router>
+      <Router
+        basename={basename}
+      >
         <Suspense
-          fallback={<div>loading...</div>}
+          fallback={<Loading />}
         >
           <Switch>
             <Route path="/detail" component={Detail} />
-            <Route path="/spa" component={Spa} />
             <Route path="*" component={NoMatch} />
           </Switch>
         </Suspense>
