@@ -2,7 +2,7 @@ const express = require('express');
 
 const Router = express.Router();
 
-Router.get('/content', (req, res) => res.json([
+Router.get('/detail', (req, res) => res.json([
   {
     title: 'title-1',
   },

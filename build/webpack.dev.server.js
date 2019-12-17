@@ -15,6 +15,9 @@ const plugins = [
     template: path.resolve(__dirname, '../src/html-templates/app.ejs'),
     page: config.page,
   }),
+  new webpack.DefinePlugin({
+    WEBPACK_DEV_SERVER: JSON.stringify(true),
+  }),
 ];
 
 const files = fs.readdirSync(path.resolve(__dirname, '../dll'));
@@ -41,20 +44,12 @@ const devConfig = {
     port: 8383,
     hot: true,
     historyApiFallback: true,
-    // proxy: {
-    //   'xxx': {
-    //     'target': 'xxx',
-    //     'secure': false, //https
-    //     'pathRewrite': {
-    //       'xxx': 'xxx'
-    //     },
-    //     'changeOrigin': true,
-    //     'header': {
-    //       host: '',
-    //       cookie: ''
-    //     }
-    //   }
-    // }
+    proxy: {
+      '/api/': {
+        target: config.io.server_host_dev,
+        changeOrigin: true,
+      },
+    },
   },
   module: {
     rules: [

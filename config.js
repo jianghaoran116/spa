@@ -21,9 +21,9 @@ module.exports = {
   static_dir_dev: `${__dirname}/dist/static/`,
   static_dir_prod: `${__dirname}/dist/static/`,
 
-  // react router
+  // react browserRouter basename - FE
   base_name_dev: '',
-  base_name_prod: '/spa', // www.xxxxx.com/spa 填 /spa
+  base_name_prod: '/spa', // www.xxxxx.com/spa -> /spa
 
   // HTML meta data
   page: {
@@ -36,5 +36,7 @@ module.exports = {
 
   // request url
   io: {
+    server_host_dev: 'http://localhost:8686/',
+    server_host_prod: 'http://123.207.172.63:8686/',
   },
 };

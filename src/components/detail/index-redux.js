@@ -1,4 +1,8 @@
 import axios from '@/components/base/axios';
+import ioUri from '../../config';
+
+const detailUri = ioUri.detail;
+console.log(detailUri.content);
 
 const initialState = {
   loading: true,
@@ -40,7 +44,7 @@ function queryContent() {
   try {
     const reqconfig = {
       method: 'GET',
-      url: '/list/content',
+      url: `${detailUri.content}`,
     };
     return axios(reqconfig);
   } catch (err) {

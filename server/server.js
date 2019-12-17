@@ -29,7 +29,7 @@ function init() {
     },
   }));
 
-  app.use('/list', contentRouter);
+  app.use('/api', contentRouter);
 
   app.all('*', (req, res) => {
     utils.readContent(templateRootDir, 'index.html')
