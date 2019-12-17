@@ -2,14 +2,52 @@
 webpack v4.25.1  
 babel v7.2.0
 
-## 🛴 Usage: 
-dev:build // 打包出测试环境文件  
-dev:analysis // 生成测试环境下的分析文件  
-dev:server:analyzer // webpack的分析  
-dev:server // 用webpack启动服务  
-build // 打包生产环境下的文件  
-build:dll:dev // 打包测试环境的dll文件  
-build:dll:prod // 打包生产环境的dll文件  
+#### 启动流程：  
+1. 安装  
+
+``` javascript 
+  npm install 
+``` 
+2. 安装完后运行:  
+``` javascript 
+  npm run dev:dll // 打包第三方库
+  npm prod:dll 
+```  
+
+3. 开发运行:  
+``` javascript 
+  npm run dev:server // 启动前端服务
+```  
+
+4. 需要看打包后的文件:  
+``` javascript 
+  npm run dev:build
+```  
+
+5. 打包生产环境代码:  
+``` javascript 
+  npm run prod:build
+```  
+
+6. 需要起前端服务（调试配置文件）:  
+``` javascript 
+  npm run dev:express:server
+  或
+  npm run prod:express:server
+```  
+
+### 修改配置文件 *config.js* **根目录下**, src下为前端的接口配置文件  
+``` javascript
+  public_path_prod: '' // publicPath
+  port: '' // 端口
+  template_root_dir_prod: `${__dirname}/dist/` // index.html的目录地址 dist/  
+  static_dir_prod:  `${__dirname}/dist/static/` // 静态资源的目录地址 dist/static/
+  base_name_prod:  '/spa', // eg: www.xxxxx.com/spa -> /spa 这里是给前端用的  
+  io: {
+    server_host_prod: 'http://123.207.172.63:8686/', // 接口地址
+  }
+  page // 设置index.html里的值 比如title 
+```
 
 ## ⚙️ Code Base:
 react v16.6.3  
@@ -18,7 +56,7 @@ React-Router  v5.1.2
 stylus v0.54.7 // 底层node  
  
 ``` javascript 
-|-- m-report // 混合方式划分文件结构    
+|-- doc-detail // 混合方式划分文件结构    
     |-- app.jsx // 入口文件  
     |-- utils  
     |-- components // 应用的组件 对应view  
