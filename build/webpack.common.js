@@ -37,6 +37,9 @@ const plugins = [
     filename: '[name].[chunkhash].css',
     chunkFilename: '[id].[chunkhash].css',
   }),
+  new webpack.DefinePlugin({
+    WEBPACK_DEV_SERVER: JSON.stringify(false),
+  }),
 ];
 
 const files = fs.readdirSync(path.resolve(__dirname, '../dll'));
