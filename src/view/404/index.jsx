@@ -20,7 +20,7 @@ class NoMatch extends Component {
     return (
       <div styleName="no-match">
         <div styleName="no-match-content">
-          404page
+          404-page
         </div>
       </div>
     );

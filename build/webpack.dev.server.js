@@ -1,14 +1,61 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
+const path = require('path');
+const fs = require('fs');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const AddAssetHtmlWebpackPlugin = require('add-asset-html-webpack-plugin');
 const commonConfig = require('./webpack.common.js');
 const config = require('../config');
 
-const PUBLIC_PATH = config.public_path_dev;
+
+const plugins = [
+  new webpack.HotModuleReplacementPlugin(),
+  new HtmlWebpackPlugin({
+    template: path.resolve(__dirname, '../src/html-templates/app.ejs'),
+    page: config.page,
+  }),
+];
+
+const files = fs.readdirSync(path.resolve(__dirname, '../dll'));
+files.forEach((file) => {
+  if (/.*\.dll.js/.test(file)) {
+    plugins.push(new AddAssetHtmlWebpackPlugin({
+      filepath: path.resolve(__dirname, '../dll', file),
+    }));
+  }
+  if (/.*\.manifest.json/.test(file)) {
+    plugins.push(new webpack.DllReferencePlugin({
+      manifest: path.resolve(__dirname, '../dll', file),
+    }));
+  }
+});
 
 const devConfig = {
   mode: 'development',
   devtool: 'cheap-module-eval-source-map',
+  devServer: {
+    overlay: true,
+    contentBase: '../dist',
+    open: true,
+    port: 8383,
+    hot: true,
+    historyApiFallback: true,
+    // proxy: {
+    //   'xxx': {
+    //     'target': 'xxx',
+    //     'secure': false, //https
+    //     'pathRewrite': {
+    //       'xxx': 'xxx'
+    //     },
+    //     'changeOrigin': true,
+    //     'header': {
+    //       host: '',
+    //       cookie: ''
+    //     }
+    //   }
+    // }
+  },
   module: {
     rules: [
       {
@@ -51,13 +98,11 @@ const devConfig = {
       },
     ],
   },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-  ],
+  plugins,
   output: {
+    path: path.resolve(__dirname, '../dist'),
     filename: '[name].js',
     chunkFilename: '[name].chunk.js',
-    publicPath: PUBLIC_PATH,
   },
 };
 

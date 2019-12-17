@@ -5,7 +5,7 @@
 
 module.exports = {
   // Deploy
-  public_path_dev: '/',
+  public_path_dev: '/', // public path
   public_path_prod: '//www.curlyhair.cn/',
   port: 8686,
   plugin_url: '',
@@ -13,7 +13,9 @@ module.exports = {
   fb_id: '',
   analyse_bundle: true,
 
-  // server
+  // 打包文件路径
+  // template - index.html
+  // static - 静态资源
   template_root_dir_dev: `${__dirname}/dist/`,
   template_root_dir_prod: `${__dirname}/dist/`,
   static_dir_dev: `${__dirname}/dist/static/`,

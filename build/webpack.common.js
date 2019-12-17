@@ -8,14 +8,17 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const config = require('../config');
 
 let publicPath = ''; // HtmlWebpackPlugin给ejs模版设置路径
-let rootPath = ''; // 静态根html路径
+let rootPath = ''; // 根html路径
+let staticPath = ''; // 静态资源路径
 
 if (process.env.NODE_ENV === 'production') {
   publicPath = config.public_path_prod;
   rootPath = config.template_root_dir_prod;
+  staticPath = config.static_dir_prod;
 } else {
   publicPath = config.public_path_dev;
   rootPath = config.template_root_dir_dev;
+  staticPath = config.static_dir_dev;
 }
 
 const plugins = [
@@ -33,9 +36,6 @@ const plugins = [
     // both options are optional
     filename: '[name].[chunkhash].css',
     chunkFilename: '[id].[chunkhash].css',
-  }),
-  new webpack.ProvidePlugin({
-    $: 'jquery',
   }),
 ];
 
@@ -101,7 +101,7 @@ module.exports = {
     },
   },
   output: {
-    path: path.resolve(__dirname, '../dist/static/'),
+    path: staticPath,
   },
   resolve: {
     extensions: ['.js', '.jsx'], // 样式文件后缀不建议配置
