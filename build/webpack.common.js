@@ -66,7 +66,7 @@ module.exports = {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         // loader: 'babel-loader',
-        use: ['babel-loader', 'eslint-loader'],
+        use: ['cache-loader', 'babel-loader', 'eslint-loader'],
       }, {
         test: /\.(woff|woff2|svg|eot|ttf)$/,
         use: {
