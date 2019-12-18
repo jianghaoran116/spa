@@ -1,5 +1,5 @@
 {
-  "name": "m-report",
+  "name": "spa",
   "sideEffects": [
     "**/*.css",
     "**/*.scss",
@@ -10,8 +10,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:dll:dev": "cross-env NODE_ENV=development webpack --config ./build/webpack.dll.js",
-    "build:dll:prod": "cross-env NODE_ENV=production webpack --config ./build/webpack.dll.js",
+    "dev:dll": "cross-env NODE_ENV=development webpack --config ./build/webpack.dll.js",
+    "prod:dll": "cross-env NODE_ENV=production webpack --config ./build/webpack.dll.js",
     "dev:build": "cross-env NODE_ENV=development webpack --config ./build/webpack.dev.js --watch",
     "dev:express:server": "cross-env NODE_ENV=development node ./server/index.js",
     "dev:analysis": "cross-env NODE_ENV=development webpack --config ./build/webpack.dev.js --profile --json > stats.json",
