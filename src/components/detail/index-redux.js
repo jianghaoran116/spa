@@ -1,4 +1,4 @@
-import axios from '@/components/base/axios';
+import axios from '../base/axios';
 import ioUri from '../../config';
 
 const detailUri = ioUri.detail;

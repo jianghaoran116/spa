@@ -6,6 +6,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { actions } from './redux';
+import SkeletonPage from '../skeleton/detail/index';
+import DetailHeader from '../../components/detail/header/index';
+import DetailContent from '../../components/detail/content/index';
+import DetailFooter from '../../components/detail/footer/index';
 import './index.styl';
 
 @connect(
@@ -35,19 +39,13 @@ class Detail extends Component {
     return (
       this.props.loading
         ? (
-          <div styleName="skeleton">
-            <div styleName="skeleton-head" />
-            <div styleName="skeleton-body">
-              <div styleName="skeleton-title" />
-              <div styleName="skeleton-content" />
-            </div>
-          </div>
+          <SkeletonPage />
         )
         : (
-          <div>
-            {
-              this.props.content.map(item => <div key={item.title}>{item.title}</div>)
-            }
+          <div styleName="detail-container">
+            <DetailHeader />
+            <DetailContent />
+            <DetailFooter />
           </div>
         )
     );

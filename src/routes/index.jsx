@@ -9,11 +9,11 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-import Loading from '@/view/loading';
+import Loading from '../view/loading';
 import config from '../../config';
 
-const Detail = lazy(() => import(/* webpackChunkName:'detail-chunk' */'@/view/detail/'));
-const NoMatch = lazy(() => import(/* webpackChunkName:'404-chunk' */'@/view/404/'));
+const Detail = lazy(() => import(/* webpackChunkName:'detail-chunk' */'../view/detail/'));
+const NoMatch = lazy(() => import(/* webpackChunkName:'404-chunk' */'../view/404/'));
 
 let basename = '';
 if (process.env.NODE_ENV === 'production') {
