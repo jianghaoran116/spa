@@ -12,6 +12,7 @@ class DetailContent extends Component {
       <div styleName="wrap">
         <div styleName="title">
           <p>
+            <span className="iconfont" styleName="iconfont">&#xe8ae;</span>
             明细
             <span>(10)</span>
           </p>

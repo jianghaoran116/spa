@@ -1,0 +1,196 @@
+@import '../../../styles/theme.styl'
+
+@keyframes ant-skeleton-loading {
+  0% {
+    background-position 100% 50%
+  }
+  100% {
+    background-position 0 50%
+  }
+}
+
+.voucher-skeleton
+  position absolute
+  left 0
+  top 0
+  right 0
+  bottom 0
+  background #f5f5f9
+  overflow auto
+  font-size px2rem(28)
+
+.skeleton-content
+  width 100%
+  height px2rem(40)
+  background linear-gradient(90deg, #f2f2f2 25%, #e6e6e6 37%, #f2f2f2 63%)
+  background-size 400% 100%
+  animation ant-skeleton-loading 1.4s ease infinite
+
+$shadowColor = #AEAEAE
+
+.header-wrap
+  width 100%
+  height auto
+  min-height px2rem(160)
+  margin 0
+  background #ffffff
+  display flex
+  flex-direction row
+  justify-content space-between
+  align-items center
+  border-top px2rem(2) solid #f5f5f9
+
+  .left
+    flex-grow 1
+    text-align left
+    margin 0 0 0 px2rem(40)
+    padding px2rem(30) 0
+
+    .time
+      font-size px2rem(24)
+      line-height px2rem(30)
+      color #555555
+    
+    .title
+      margin px2rem(10) 0 0 0
+      font-size px2rem(40)
+      line-height px2rem(48)
+      color #111111
+
+  .right
+    width px2rem(160)
+    height px2rem(160)
+    margin 0 px2rem(40)
+    flex-shrink 0
+    display flex
+    align-self flex-end
+    justify-content center
+    align-items flex-end
+    padding 0 0 px2rem(20) 0
+    
+    a
+      color #007AFF
+      font-size px2rem(28)
+
+
+.content-wrap
+  width 100%
+  background #ffffff
+  height auto
+  margin px2rem(24) 0
+  min-height px2rem(560)
+  box-shadow 0 px2rem(4) px2rem(10) px2rem(-4) $shadowColor
+
+  .content-list
+    width 100%
+    height auto
+    min-height px2rem(120)
+    border-top px2rem(2) solid #f4f4f4
+
+    .top
+      padding px2rem(20) px2rem(40)
+      display flex
+      flex-direction row
+      justify-content space-between
+      align-items flex-start
+
+      .type
+        width px2rem(40)
+        height px2rem(40)
+        border-radius px2rem(40)
+        font-size px2rem(24)
+        line-height px2rem(40)
+        color #ffffff
+        flex-shrink 0
+        text-align center
+        background #cccccc
+
+      .content 
+        flex-grow 1
+        padding 0 px2rem(20)
+        
+        .title
+          font-size px2rem(28)
+          line-height px2rem(32)
+          color #111111
+
+        .dec
+          font-size px2rem(24)
+          line-height px2rem(28)
+          color #888888
+          margin px2rem(10) 0 0 0
+
+      .right
+        width px2rem(240)
+        flex-shrink 0
+        text-align right
+        display flex
+        flex-direction grow
+        justify-content space-between
+
+        >p
+          color #cccccc
+          flex-grow 1
+          text-align right
+
+        .show-info
+          width px2rem(24)
+          height px2rem(24)
+          margin 0 0 0 px2rem(24)
+
+
+    .bottom
+      padding px2rem(22) px2rem(108)
+      background #f5f5f9
+      overflow hidden
+      transition opacity .3s ease
+
+      .info-list
+        margin px2rem(10) 0
+        display flex
+        flex-direction grow
+
+        .left
+          width px2rem(160)
+          flex-shrink 0
+          color #888888
+          font-size px2rem(24)
+          line-height px2rem(30)
+
+        .right 
+          flex-grow 1
+          color #000000
+          font-size px2rem(24)
+          line-height px2rem(30)
+      
+    .hidden
+      padding 0
+      height 0
+      opacity 0
+
+    .show
+      height auto
+      opacity 1
+
+  .jie
+
+    .top
+
+      .type
+        background linear-gradient(0, #1EE8D4, #00A895)
+
+      .right
+        p
+          color #13BFA9
+
+  .dai
+
+    .top
+
+      .type
+        background linear-gradient(0, #FFAA86, #E14C46)
+
+      .right
+        p
+          color #F74209
+        

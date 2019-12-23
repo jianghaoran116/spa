@@ -12,6 +12,7 @@ class DetailFooter extends Component {
       <div styleName="wrap">
         <div styleName="list">
           <div styleName="type">
+            <span className="iconfont" styleName="iconfont">&#xe605;</span>
             创建
           </div>
           <div styleName="name">
@@ -23,6 +24,7 @@ class DetailFooter extends Component {
         </div>
         <div styleName="list">
           <div styleName="type">
+            <span className="iconfont" styleName="iconfont">&#xe605;</span>
             创建
           </div>
           <div styleName="name">
@@ -34,7 +36,8 @@ class DetailFooter extends Component {
         </div>
         <div styleName="list">
           <div styleName="type">
-            创建
+            <span className="iconfont" styleName="iconfont">&#xe606;</span>
+            审核
           </div>
           <div styleName="name">
             李四

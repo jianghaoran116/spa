@@ -13,6 +13,7 @@ import Loading from '../view/loading';
 import config from '../../config';
 
 const Detail = lazy(() => import(/* webpackChunkName:'detail-chunk' */'../view/detail/'));
+const Voucher = lazy(() => import(/* webpackChunkName:'voucher-chunk' */'../view/voucher/'));
 const NoMatch = lazy(() => import(/* webpackChunkName:'404-chunk' */'../view/404/'));
 
 let basename = '';
@@ -33,6 +34,7 @@ class Index extends Component {
         >
           <Switch>
             <Route path="/detail" component={Detail} />
+            <Route path="/voucher" component={Voucher} />
             <Route path="*" component={NoMatch} />
           </Switch>
         </Suspense>

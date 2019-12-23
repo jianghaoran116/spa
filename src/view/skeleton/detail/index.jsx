@@ -35,17 +35,17 @@ class DetailSkeleton extends Component {
             <div styleName="right" />
           </div>
           <div styleName="bottom">
-            <p>
+            <div>
               <div styleName="skeleton-content" />
-            </p>
+            </div>
           </div>
         </div>
 
         <div styleName="detail-content-wrap">
           <div styleName="title">
-            <p>
+            <div>
               <div styleName="skeleton-content" />
-            </p>
+            </div>
           </div>
           <div styleName="content">
             <div styleName="content-list">

@@ -23,6 +23,8 @@ class Detail extends Component {
   constructor(props) {
     super(props);
 
+    document.title = '应收单';
+
     Promise.all([
       this.props.getContent(),
       this.props.showSek(),
