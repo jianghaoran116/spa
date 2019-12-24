@@ -11,11 +11,7 @@ class DetailContent extends Component {
   render() {
     return (
       <div styleName="wrap">
-        <ContentList />
-        <ContentList />
-        <ContentList />
-        <ContentList />
-        <ContentList />
+        {this.props.data.map((item, idx) => <ContentList ke={`${item.accsubject}-${idx}`} data={item} />)}
       </div>
     );
   }

@@ -12,21 +12,23 @@ class DetailHeader extends Component {
       <div styleName="wrap">
         <div styleName="left">
           <div styleName="time">
-            2019-12
+            {this.props.data.period}
           </div>
           <div styleName="title">
-            记账凭证-01记账凭证-01记账凭证-01记账凭证-01记账凭证-01记账凭证-01记账凭证-01记账凭证-01记账凭证-01记账凭证-01记账凭证-01
+            {this.props.data.billcode}
           </div>
         </div>
         <div styleName="right">
-          <a
+          <div className="iconfont" styleName="iconfont">&#xe611;</div>
+          <p>{`(附件${this.props.data.fileurl.length})`}</p>
+          {/* <a
             target="_blank"
             rel="noopener noreferrer"
             href="https://www.baidu.com"
           >
             <div className="iconfont" styleName="iconfont">&#xe611;</div>
-            (附件2)
-          </a>
+            {`(附件${this.props.data.fileurl.length})`}
+          </a> */}
         </div>
       </div>
     );

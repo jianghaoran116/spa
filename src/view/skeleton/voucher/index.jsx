@@ -38,24 +38,6 @@ class DetailSkeleton extends Component {
                 <div styleName="skeleton-content" />
               </div>
             </div>
-            <div styleName="bottom">
-              <div styleName="info-list">
-                <div styleName="left">
-                  <div styleName="skeleton-content" />
-                </div>
-                <div styleName="right">
-                  <div styleName="skeleton-content" />
-                </div>
-              </div>
-              <div styleName="info-list">
-                <div styleName="left">
-                  <div styleName="skeleton-content" />
-                </div>
-                <div styleName="right">
-                  <div styleName="skeleton-content" />
-                </div>
-              </div>
-            </div>
           </div>
 
           <div styleName="content-list">
@@ -69,24 +51,6 @@ class DetailSkeleton extends Component {
               </div>
               <div styleName="right">
                 <div styleName="skeleton-content" />
-              </div>
-            </div>
-            <div styleName="bottom">
-              <div styleName="info-list">
-                <div styleName="left">
-                  <div styleName="skeleton-content" />
-                </div>
-                <div styleName="right">
-                  <div styleName="skeleton-content" />
-                </div>
-              </div>
-              <div styleName="info-list">
-                <div styleName="left">
-                  <div styleName="skeleton-content" />
-                </div>
-                <div styleName="right">
-                  <div styleName="skeleton-content" />
-                </div>
               </div>
             </div>
           </div>

@@ -29,7 +29,7 @@ function init() {
     },
   }));
 
-  app.use('/api', contentRouter);
+  app.use('/fids/api', contentRouter);
 
   app.all('*', (req, res) => {
     utils.readContent(templateRootDir, 'index.html')

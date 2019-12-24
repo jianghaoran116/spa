@@ -4,16 +4,17 @@
  */
 
 import React, { Component } from 'react';
+import utils from '../../../utils/index';
 import './content-list.styl';
 
 class DetailContent extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      visible: false,
-      voucherType: false,
-    };
+    // this.state = {
+    //   visible: false,
+    //   voucherType: false,
+    // };
 
     this.showInfo = this.showInfo.bind(this);
   }
@@ -29,33 +30,39 @@ class DetailContent extends Component {
 
   render() {
     return (
-      <div styleName={`content-list ${this.state.voucherType ? 'jie' : 'dai'}`}>
+      <div styleName={`content-list ${this.props.data.debit_org !== 0 ? 'jie' : 'dai'}`}>
         <div styleName="top">
           <div styleName="type">
-            {this.state.voucherType ? '借' : '贷'}
+            {this.props.data.debit_org !== 0 ? '借' : '贷'}
           </div>
           <div styleName="content">
-            <div styleName="title">创维平板显示器</div>
-            <div styleName="dec">销售一部 张三</div>
+            <div styleName="title">{this.props.data.accsubject}</div>
+            <div styleName="dec">{this.props.data.description}</div>
           </div>
           <div
             styleName="right"
-            role="button"
-            tabIndex="0"
-            onClick={this.showInfo}
-            onKeyDown={() => {}}
+            // role="button"
+            // tabIndex="0"
+            // onClick={this.showInfo}
+            // onKeyDown={() => {}}
           >
-            <p>2660.54</p>
-            <div styleName="show-info">
+            <p>
+              {
+                this.props.data.debit_org !== 0
+                  ? utils.formatCash(this.props.data.debit_org)
+                  : utils.formatCash(this.props.data.credit_org)
+              }
+            </p>
+            {/* <div styleName="show-info">
               {
                 this.state.visible
                   ? <span className="iconfont">&#xe648;</span>
                   : <span className="iconfont">&#xe644;</span>
               }
-            </div>
+            </div> */}
           </div>
         </div>
-        <div styleName={`bottom ${!this.state.visible ? 'hidden' : 'show'}`}>
+        {/* <div styleName={`bottom ${!this.state.visible ? 'hidden' : 'show'}`}>
           <div styleName="info-list">
             <div styleName="left">
               <p>摘要</p>
@@ -88,7 +95,7 @@ class DetailContent extends Component {
               <p>2660.54</p>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }

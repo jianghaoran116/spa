@@ -27,225 +27,37 @@ class DetailHeader extends Component {
   }
 
   render() {
+    const { data } = this.props;
+
     return (
       <div styleName="wrap">
         <div styleName="top">
-          <div styleName="top-content">
-            <div styleName="left">
-              其他应收
-            </div>
-            <div styleName="right">
-              OARar19123912391293
-            </div>
-          </div>
-          <div styleName="top-content">
-            <div styleName="left">
-              客户
-            </div>
-            <div styleName="right">
-              格力电器股份有限公司
-            </div>
-          </div>
-          <div styleName="top-content">
-            <div styleName="left">
-              客户
-            </div>
-            <div styleName="right">
-              格力电器股份有限公司
-            </div>
-          </div>
-          <div styleName="top-content">
-            <div styleName="left">
-              客户
-            </div>
-            <div styleName="right">
-              格力电器股份有限公司格力电器股份有限公司格力电器股份有限公司格力电器股份有限公司格力电器股份有限公司
-            </div>
-          </div>
-          <div styleName="top-content">
-            <div styleName="left">
-              客户
-            </div>
-            <div styleName="right">
-              格力电器股份有限公司
-            </div>
-          </div>
-          <div styleName="top-content" style={this.state.visible ? { display: 'none' } : { display: 'flex' }}>
-            <div styleName="left">
-              客户
-            </div>
-            <div styleName="right">
-              格力电器股份有限公司
-            </div>
-          </div>
-          <div styleName="top-content" style={this.state.visible ? { display: 'none' } : { display: 'flex' }}>
-            <div styleName="left">
-              客户
-            </div>
-            <div styleName="right">
-              格力电器股份有限公司
-            </div>
-          </div>
-          <div styleName="top-content" style={this.state.visible ? { display: 'none' } : { display: 'flex' }}>
-            <div styleName="left">
-              客户
-            </div>
-            <div styleName="right">
-              格力电器股份有限公司
-            </div>
-          </div>
-          <div styleName="top-content" style={this.state.visible ? { display: 'none' } : { display: 'flex' }}>
-            <div styleName="left">
-              客户
-            </div>
-            <div styleName="right">
-              格力电器股份有限公司
-            </div>
-          </div>
-          <div styleName="top-content" style={this.state.visible ? { display: 'none' } : { display: 'flex' }}>
-            <div styleName="left">
-              客户
-            </div>
-            <div styleName="right">
-              格力电器股份有限公司
-            </div>
-          </div>
-          <div styleName="top-content" style={this.state.visible ? { display: 'none' } : { display: 'flex' }}>
-            <div styleName="left">
-              客户
-            </div>
-            <div styleName="right">
-              格力电器股份有限公司
-            </div>
-          </div>
-          <div styleName="top-content" style={this.state.visible ? { display: 'none' } : { display: 'flex' }}>
-            <div styleName="left">
-              客户
-            </div>
-            <div styleName="right">
-              格力电器股份有限公司
-            </div>
-          </div>
-          <div styleName="top-content" style={this.state.visible ? { display: 'none' } : { display: 'flex' }}>
-            <div styleName="left">
-              客户
-            </div>
-            <div styleName="right">
-              格力电器股份有限公司
-            </div>
-          </div>
-          <div styleName="top-content" style={this.state.visible ? { display: 'none' } : { display: 'flex' }}>
-            <div styleName="left">
-              客户
-            </div>
-            <div styleName="right">
-              格力电器股份有限公司
-            </div>
-          </div>
-          <div styleName="top-content" style={this.state.visible ? { display: 'none' } : { display: 'flex' }}>
-            <div styleName="left">
-              客户
-            </div>
-            <div styleName="right">
-              格力电器股份有限公司
-            </div>
-          </div>
-          <div styleName="top-content" style={this.state.visible ? { display: 'none' } : { display: 'flex' }}>
-            <div styleName="left">
-              客户
-            </div>
-            <div styleName="right">
-              格力电器股份有限公司
-            </div>
-          </div>
-          <div styleName="top-content" style={this.state.visible ? { display: 'none' } : { display: 'flex' }}>
-            <div styleName="left">
-              客户
-            </div>
-            <div styleName="right">
-              格力电器股份有限公司
-            </div>
-          </div>
-          <div styleName="top-content" style={this.state.visible ? { display: 'none' } : { display: 'flex' }}>
-            <div styleName="left">
-              客户
-            </div>
-            <div styleName="right">
-              格力电器股份有限公司
-            </div>
-          </div>
-          <div styleName="top-content" style={this.state.visible ? { display: 'none' } : { display: 'flex' }}>
-            <div styleName="left">
-              客户
-            </div>
-            <div styleName="right">
-              格力电器股份有限公司
-            </div>
-          </div>
-          <div styleName="top-content" style={this.state.visible ? { display: 'none' } : { display: 'flex' }}>
-            <div styleName="left">
-              客户
-            </div>
-            <div styleName="right">
-              格力电器股份有限公司
-            </div>
-          </div>
-          <div styleName="top-content" style={this.state.visible ? { display: 'none' } : { display: 'flex' }}>
-            <div styleName="left">
-              客户
-            </div>
-            <div styleName="right">
-              格力电器股份有限公司
-            </div>
-          </div>
-          <div styleName="top-content" style={this.state.visible ? { display: 'none' } : { display: 'flex' }}>
-            <div styleName="left">
-              客户
-            </div>
-            <div styleName="right">
-              格力电器股份有限公司
-            </div>
-          </div>
-          <div styleName="top-content" style={this.state.visible ? { display: 'none' } : { display: 'flex' }}>
-            <div styleName="left">
-              客户
-            </div>
-            <div styleName="right">
-              格力电器股份有限公司
-            </div>
-          </div>
-          <div styleName="top-content" style={this.state.visible ? { display: 'none' } : { display: 'flex' }}>
-            <div styleName="left">
-              客户
-            </div>
-            <div styleName="right">
-              格力电器股份有限公司
-            </div>
-          </div>
-          <div styleName="top-content" style={this.state.visible ? { display: 'none' } : { display: 'flex' }}>
-            <div styleName="left">
-              客户
-            </div>
-            <div styleName="right">
-              格力电器股份有限公司
-            </div>
-          </div>
-          <div styleName="top-content" style={this.state.visible ? { display: 'none' } : { display: 'flex' }}>
-            <div styleName="left">
-              客户
-            </div>
-            <div styleName="right">
-              格力电器股份有限公司
-            </div>
-          </div>
-          <div styleName="top-content" style={this.state.visible ? { display: 'none' } : { display: 'flex' }}>
-            <div styleName="left">
-              客户
-            </div>
-            <div styleName="right">
-              格力电器股份有限公司
-            </div>
-          </div>
+          {
+            data.map((item, idx) => {
+              if (idx < 4) {
+                return (
+                  <div key={item.name} styleName="top-content">
+                    <div styleName="left">
+                      {item.name}
+                    </div>
+                    <div styleName="right">
+                      {item.value}
+                    </div>
+                  </div>
+                );
+              }
+              return (
+                <div styleName="top-content" style={this.state.visible ? { display: 'none' } : { display: 'flex' }}>
+                  <div styleName="left">
+                    {item.name}
+                  </div>
+                  <div styleName="right">
+                    {item.value}
+                  </div>
+                </div>
+              );
+            })
+          }
         </div>
         <div styleName="middle">
           <div styleName="left" />
@@ -260,7 +72,14 @@ class DetailHeader extends Component {
           onKeyDown={() => {}}
         >
           <p>
-            展开更多
+            {
+              // eslint-disable-next-line no-nested-ternary
+              data.length < 5
+                ? '暂无更多'
+                : this.state.visible
+                  ? '展开更多'
+                  : '收起更多'
+            }
           </p>
         </div>
       </div>

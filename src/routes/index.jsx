@@ -33,7 +33,7 @@ class Index extends Component {
           fallback={<Loading />}
         >
           <Switch>
-            <Route path="/detail" component={Detail} />
+            <Route path="/bill" component={Detail} />
             <Route path="/voucher" component={Voucher} />
             <Route path="*" component={NoMatch} />
           </Switch>

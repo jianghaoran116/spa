@@ -18,8 +18,11 @@ if (WEBPACK_DEV_SERVER) {
 }
 
 const config = {
-  detail: {
-    content: `${ioUri}api/detail`,
+  bill: {
+    detail: `${ioUri}fids/api/reportAnalysis/queryBillInfo`,
+  },
+  voucher: {
+    detail: `${ioUri}fids/api/reportAnalysis/queryVoucherInfo`,
   },
 };
 

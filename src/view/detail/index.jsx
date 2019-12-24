@@ -5,6 +5,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Toast } from 'antd-mobile';
 import { actions } from './redux';
 import SkeletonPage from '../skeleton/detail/index';
 import DetailHeader from '../../components/detail/header/index';
@@ -30,6 +31,9 @@ class Detail extends Component {
       this.props.showSek(),
     ]).then(() => {
       this.props.setLoadState(false);
+    }).catch((err) => {
+      Toast.loading('获取数据失败，请稍后重试', 2);
+      console.log(err);
     });
   }
 
@@ -45,9 +49,9 @@ class Detail extends Component {
         )
         : (
           <div styleName="detail-container">
-            <DetailHeader />
-            <DetailContent />
-            <DetailFooter />
+            <DetailHeader data={this.props.content.total} />
+            <DetailContent data={this.props.content.details} />
+            <DetailFooter data={this.props.content} />
           </div>
         )
     );

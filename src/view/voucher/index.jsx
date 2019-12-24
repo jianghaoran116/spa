@@ -5,6 +5,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Toast } from 'antd-mobile';
 import { actions } from './redux';
 import SkeletonPage from '../skeleton/voucher/index';
 import VoucherHeader from '../../components/voucher/header/index';
@@ -29,6 +30,9 @@ class Voucher extends Component {
       this.props.showSek(),
     ]).then(() => {
       this.props.setLoadState(false);
+    }).catch((err) => {
+      Toast.loading('获取数据失败，请稍后重试', 2);
+      console.log(err);
     });
   }
 
@@ -40,8 +44,8 @@ class Voucher extends Component {
         )
         : (
           <div styleName="voucher-container">
-            <VoucherHeader />
-            <VoucherContent />
+            <VoucherHeader data={this.props.content.total} />
+            <VoucherContent data={this.props.content.details} />
           </div>
         )
     );
