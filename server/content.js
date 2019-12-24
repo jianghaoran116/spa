@@ -4,7 +4,7 @@ const Router = express.Router();
 
 Router.get('/reportAnalysis/queryVoucherInfo', (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', 'http://www.curlyhair.cn');
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8383');
+  // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8383');
   res.header('Access-Control-Allow-Headers', 'Content-Type');
   res.header('Access-Control-Allow-Methods', '*');
   res.header('Content-Type', 'application/json;charset=utf-8');
@@ -48,7 +48,7 @@ Router.get('/reportAnalysis/queryVoucherInfo', (req, res) => {
 
 Router.get('/reportAnalysis/queryBillInfo', (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', 'http://www.curlyhair.cn');
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8383');
+  // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8383');
   res.header('Access-Control-Allow-Headers', 'Content-Type');
   res.header('Access-Control-Allow-Methods', '*');
   res.header('Content-Type', 'application/json;charset=utf-8');
