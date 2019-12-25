@@ -47,7 +47,7 @@ class DetailHeader extends Component {
                 );
               }
               return (
-                <div styleName="top-content" style={this.state.visible ? { display: 'none' } : { display: 'flex' }}>
+                <div styleName="top-content" key={item.name} style={this.state.visible ? { display: 'none' } : { display: 'flex' }}>
                   <div styleName="left">
                     {item.name}
                   </div>

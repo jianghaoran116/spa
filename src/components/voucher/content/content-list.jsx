@@ -8,26 +8,6 @@ import utils from '../../../utils/index';
 import './content-list.styl';
 
 class DetailContent extends Component {
-  constructor(props) {
-    super(props);
-
-    // this.state = {
-    //   visible: false,
-    //   voucherType: false,
-    // };
-
-    this.showInfo = this.showInfo.bind(this);
-  }
-
-  showInfo() {
-    this.setState((prevState) => {
-      console.log(prevState);
-      return {
-        visible: !prevState.visible,
-      };
-    });
-  }
-
   render() {
     return (
       <div styleName={`content-list ${this.props.data.debit_org !== 0 ? 'jie' : 'dai'}`}>

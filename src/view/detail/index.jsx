@@ -28,7 +28,6 @@ class Detail extends Component {
 
     Promise.all([
       this.props.getContent(),
-      this.props.showSek(),
     ]).then(() => {
       this.props.setLoadState(false);
     }).catch((err) => {

@@ -15,10 +15,40 @@ Router.get('/reportAnalysis/queryVoucherInfo', (req, res) => {
       total: {
         billcode: '记-116',
         period: '2019-10',
-        fileurl: [{
-          urlName: '百度',
-          url: 'https://www.baidu.com/',
-        }],
+        fileurl: {
+          title: '附件',
+          data: [
+            {
+              urlName: '百度1',
+              url: 'https://www.baidu.com/',
+            },
+            {
+              urlName: '百度2',
+              url: 'https://www.baidu.com/',
+            },
+            {
+              urlName: '百度3',
+              url: 'https://www.baidu.com/',
+            },
+          ],
+        },
+        bill: {
+          title: '单据',
+          data: [
+            {
+              outersystem: '应收管理',
+              billid: '1533917240430848', // url为空，调用接口2查看单据详情
+              billtype: 'arap_arle_LossEarnM',
+              linksrcbillurl: 'http://u8cicc-test.yyuap.com/platform/arap_arlossearn?mainId=1533917240430848&tenantId=1292161350684928&accentity=1439165757313280&exchangeWay=1', // 链接不为空，则通过链接直接跳转，
+            },
+            {
+              outersystem: '应收管理',
+              billid: '1533917240430849', // url为空，调用接口2查看单据详情
+              billtype: 'arap_arle_LossEarnM',
+              linksrcbillurl: '', // 链接不为空，则通过链接直接跳转，
+            },
+          ],
+        },
       },
       details: [
         {

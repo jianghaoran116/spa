@@ -27,7 +27,6 @@ class Voucher extends Component {
 
     Promise.all([
       this.props.getContent(),
-      this.props.showSek(),
     ]).then(() => {
       this.props.setLoadState(false);
     }).catch((err) => {
@@ -44,7 +43,7 @@ class Voucher extends Component {
         )
         : (
           <div styleName="voucher-container">
-            <VoucherHeader data={this.props.content.total} />
+            <VoucherHeader data={this.props.content.total} {...this.props} />
             <VoucherContent data={this.props.content.details} />
           </div>
         )

@@ -6,55 +6,42 @@
   min-height px2rem(160)
   margin 0
   background #ffffff
-  display flex
-  flex-direction row
-  justify-content space-between
-  align-items center
   border-top px2rem(2) solid #f5f5f9
 
-  .left
-    flex-grow 1
-    text-align left
-    margin 0 0 0 px2rem(40)
-    padding px2rem(30) 0
-
-    .time
-      font-size px2rem(24)
-      line-height px2rem(30)
-      color #555555
-    
-    .title
-      margin px2rem(10) 0 0 0
-      font-size px2rem(40)
-      line-height px2rem(48)
-      color #111111
-
-  .right
-    width px2rem(160)
-    height px2rem(160)
-    margin 0 px2rem(40)
-    flex-shrink 0
+  .top 
     display flex
-    align-self flex-end
-    justify-content flex-end
-    align-items flex-end
-    flex-direction column
-    padding 0 0 px2rem(20) 0
-    color #007AFF
-    font-size px2rem(28)
+    flex-direction row
+    justify-content space-between
+    align-items center
 
-    .iconfont
-      font-size px2rem(56)
-      color #555555
-      margin 0 auto
-      text-align center
-      font-weight normal
+    .left
+      flex-grow 1
+      text-align left
+      margin 0 0 0 px2rem(40)
+      padding px2rem(30) 0
 
-    p
-      width 100%
-      text-align center
+      .time
+        font-size px2rem(24)
+        line-height px2rem(30)
+        color #555555
+      
+      .title
+        margin px2rem(10) 0 0 0
+        font-size px2rem(40)
+        line-height px2rem(48)
+        color #111111
 
-    a
+    .right
+      width px2rem(160)
+      height px2rem(160)
+      margin 0 px2rem(40)
+      flex-shrink 0
+      display flex
+      align-self flex-end
+      justify-content flex-end
+      align-items flex-end
+      flex-direction column
+      padding 0 0 px2rem(20) 0
       color #007AFF
       font-size px2rem(28)
 
@@ -64,3 +51,59 @@
         margin 0 auto
         text-align center
         font-weight normal
+
+      p
+        width 100%
+        text-align center
+
+      a
+        color #007AFF
+        font-size px2rem(28)
+
+        .iconfont
+          font-size px2rem(56)
+          color #555555
+          margin 0 auto
+          text-align center
+          font-weight normal
+
+  .bottom
+    padding px2rem(22) px2rem(108)
+    background #f5f5f9
+    overflow hidden
+    transition opacity .3s ease
+
+    .box
+
+      .list
+        display flex
+        flex-direction grow
+
+        &:nth-child(1)
+          margin 0 0 px2rem(30) 0
+
+        .left
+          width px2rem(100)
+          flex-shrink 0
+          color #888888
+          font-size px2rem(24)
+          line-height px2rem(30)
+
+        .right 
+          flex-grow 1
+          color #000000
+          font-size px2rem(24)
+          line-height px2rem(30)
+
+          .item
+            margin 0 0 px2rem(20) 0
+
+
+  .hidden
+    padding 0
+    height 0
+    opacity 0
+
+  .show
+    height auto
+    opacity 1

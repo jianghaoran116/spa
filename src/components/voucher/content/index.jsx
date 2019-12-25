@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /**
  * @file voucher content
  * @author haoran
@@ -11,7 +12,7 @@ class DetailContent extends Component {
   render() {
     return (
       <div styleName="wrap">
-        {this.props.data.map((item, idx) => <ContentList ke={`${item.accsubject}-${idx}`} data={item} />)}
+        {this.props.data.map((item, idx) => <ContentList key={`${item.accsubject}-${idx}`} data={item} />)}
       </div>
     );
   }

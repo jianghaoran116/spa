@@ -45,7 +45,8 @@ function queryContent() {
     const param = utils.formatSearch(window.location.href);
     const reqconfig = {
       method: 'GET',
-      url: `${detailUri}?voucher=${param.voucher}&tenantId=${param.tenantId}&yhtUserId=${param.yhtUserId}`,
+      // billid=1&billtype=2&tenantId=czqne4bp11&yhtUserId=874a88c5-14ee-4657-803f-e2014b1763a2
+      url: `${detailUri}?billid=${param.billid}&billtype=${param.billtype}&tenantId=${param.tenantId}&yhtUserId=${param.yhtUserId}`,
     };
     return axios(reqconfig);
   } catch (err) {
@@ -78,10 +79,10 @@ export function getContent() {
   };
 }
 
-export function showSek() {
-  return () => new Promise((reject) => {
-    setTimeout(() => {
-      reject();
-    }, 1000);
-  });
-}
+// export function showSek() {
+//   return () => new Promise((reject) => {
+//     setTimeout(() => {
+//       reject();
+//     }, 1000);
+//   });
+// }

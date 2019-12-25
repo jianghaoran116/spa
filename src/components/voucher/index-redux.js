@@ -8,10 +8,14 @@ console.log(detailUri.content);
 const initialState = {
   loading: true,
   content: [],
+  userToken: '',
+  tenantId: '',
 };
 
 const LOAD_ARTICLES = 'LOAD_ARTICLES';
 const SET_CONTENT = 'SET_CONTENT';
+const SET_TOKEN = 'SET_TOKEN';
+const SET_TENANTID = 'SET_TENANTID';
 
 export function loadArticles(data) {
   return {
@@ -33,6 +37,20 @@ export default function voucherContent(state = initialState, action) {
       return {
         ...state,
         content: action.playload,
+      };
+    }
+
+    case SET_TOKEN: {
+      return {
+        ...state,
+        userToken: action.playload,
+      };
+    }
+
+    case SET_TENANTID: {
+      return {
+        ...state,
+        tenantId: action.playload,
       };
     }
 
@@ -68,8 +86,26 @@ function setContent(data) {
   };
 }
 
+function setToken(data) {
+  return {
+    type: SET_TOKEN,
+    playload: data,
+  };
+}
+
+function setTenantId(data) {
+  return {
+    type: SET_TENANTID,
+    playload: data,
+  };
+}
+
 export function getContent() {
   return async (dispatch) => {
+    const param = utils.formatSearch(window.location.href);
+    dispatch(setToken(param.yhtUserId));
+    dispatch(setTenantId(param.tenantId));
+
     const { data: content } = await queryContent();
     if (content.success) {
       dispatch(setContent(content.data));
@@ -77,12 +113,4 @@ export function getContent() {
       throw new Error('获取数据失败');
     }
   };
-}
-
-export function showSek() {
-  return () => new Promise((reject) => {
-    setTimeout(() => {
-      reject();
-    }, 1000);
-  });
 }
