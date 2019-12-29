@@ -23,7 +23,7 @@ module.exports = {
 
   // react browserRouter basename - FE
   base_name_dev: '',
-  base_name_prod: '/spa', // www.xxxxx.com/spa -> /spa
+  base_name_prod: '/', // www.xxxxx.com/spa -> /spa
 
   // HTML meta data
   page: {
