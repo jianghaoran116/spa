@@ -22,6 +22,14 @@ class NoMatch extends Component {
         <div styleName="no-match-content">
           404-page
         </div>
+        <div styleName="foot">
+          <a
+            target="_blank"
+            href="http://beian.miit.gov.cn"
+          >
+            京ICP备19003478号-1
+          </a>
+        </div>
       </div>
     );
   }
