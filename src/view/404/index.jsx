@@ -26,6 +26,7 @@ class NoMatch extends Component {
           <a
             target="_blank"
             href="http://beian.miit.gov.cn"
+            rel="noopener noreferrer"
           >
             京ICP备19003478号-1
           </a>
