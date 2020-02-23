@@ -2,8 +2,8 @@ const merge = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const imageminPngquant = require('imagemin-pngquant');
-const imageminMozjpeg = require('imagemin-mozjpeg');
+// const imageminPngquant = require('imagemin-pngquant');
+// const imageminMozjpeg = require('imagemin-mozjpeg');
 const commonConfig = require('./webpack.common.js');
 const config = require('../config');
 
@@ -50,16 +50,16 @@ const prodConfig = {
           {
             loader: 'img-loader',
             options: {
-              plugins: [
-                imageminPngquant({
-                  floyd: 0.5,
-                  speed: 2,
-                }),
-                imageminMozjpeg({
-                  progressive: true,
-                  arithmetic: false,
-                }),
-              ],
+              // plugins: [
+              //   imageminPngquant({
+              //     floyd: 0.5,
+              //     speed: 2,
+              //   }),
+              //   imageminMozjpeg({
+              //     progressive: true,
+              //     arithmetic: false,
+              //   }),
+              // ],
             },
           },
         ],
@@ -70,8 +70,8 @@ const prodConfig = {
     minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
   },
   output: {
-    filename: '[name].[contenthash].js',
-    chunkFilename: '[name].[contenthash].chunk.js',
+    filename: '[name].[hash].js',
+    chunkFilename: '[name].[chunkhash].js',
     publicPath: PUBLIC_PATH,
   },
 };

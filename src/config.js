@@ -5,7 +5,7 @@
 import baseConfig from '../config';
 
 let ioUri = '';
-console.log(process.env.NODE_ENV);
+
 if (process.env.NODE_ENV === 'production') {
   ioUri = baseConfig.io.server_host_prod;
 } else {
@@ -18,11 +18,11 @@ if (WEBPACK_DEV_SERVER) {
 }
 
 const config = {
-  bill: {
-    detail: `${ioUri}fids/api/reportAnalysis/queryBillInfo`,
+  detail: {
+    content: `${ioUri}api/detail`,
   },
-  voucher: {
-    detail: `${ioUri}fids/api/reportAnalysis/queryVoucherInfo`,
+  login: {
+    userlist: `${ioUri}user/list`,
   },
 };
 

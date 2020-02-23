@@ -55,8 +55,8 @@ const devConfig = {
     new webpack.HotModuleReplacementPlugin(),
   ],
   output: {
-    filename: '[name].js',
-    chunkFilename: '[name].chunk.js',
+    filename: '[name].[hash].js',
+    chunkFilename: '[name].[chunkhash].js',
     publicPath: PUBLIC_PATH,
   },
 };

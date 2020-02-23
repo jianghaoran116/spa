@@ -1,7 +1,8 @@
 const express = require('express');
+const proxyMiddleWare = require('http-proxy-middleware');
 const config = require('../config.js');
 const utils = require('./utils');
-const contentRouter = require('./content');
+// const contentRouter = require('./content');
 
 let staticDir = '';
 let templateRootDir = '';
@@ -13,6 +14,13 @@ if (process.env.NODE_ENV === 'production') {
   staticDir = config.static_dir_dev;
   templateRootDir = config.template_root_dir_dev;
 }
+
+const proxyOption = {
+  target: 'http://123.207.172.63:9093/',
+  changeOrigoin: true,
+  ws: true,
+  pathRewrite: { '^/api': '/' },
+};
 
 function init() {
   const app = express();
@@ -29,7 +37,7 @@ function init() {
     },
   }));
 
-  app.use('/fids/api', contentRouter);
+  app.use('/api', proxyMiddleWare(proxyOption));
 
   app.all('*', (req, res) => {
     utils.readContent(templateRootDir, 'index.html')

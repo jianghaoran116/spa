@@ -1,9 +1,15 @@
 import NoMatch from '../view/404/redux';
-import Detail from '../view/detail/redux';
-import Voucher from '../view/voucher/redux';
+import Login from '../view/login/redux';
+import Register from '../view/register/redux';
+import User from './user';
+import { chatuser } from '../components/usercard/index-redux';
+import Chat from '../view/chat/redux';
 
 export default {
   NoMatch,
-  Detail,
-  Voucher,
+  User,
+  Login,
+  Register,
+  chatuser,
+  Chat,
 };

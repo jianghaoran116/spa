@@ -7,7 +7,7 @@ module.exports = {
   // Deploy
   public_path_dev: '/', // public path
   public_path_prod: '//www.curlyhair.cn/',
-  port: 8686,
+  port: 8181,
   plugin_url: '',
   ga_id: '',
   fb_id: '',
@@ -22,7 +22,7 @@ module.exports = {
   static_dir_prod: `${__dirname}/dist/static/`,
 
   // react browserRouter basename - FE
-  base_name_dev: '',
+  base_name_dev: '/',
   base_name_prod: '/', // www.xxxxx.com/spa -> /spa
 
   // HTML meta data
@@ -36,7 +36,7 @@ module.exports = {
 
   // request url
   io: {
-    server_host_dev: 'http://localhost:8686/',
-    server_host_prod: 'http://123.207.172.63:8686/',
+    server_host_dev: 'http://localhost:9093/',
+    server_host_prod: 'http://123.207.172.63:9093/',
   },
 };

@@ -1,11 +1,14 @@
 /*
  * @file 自己定义的基础样式
  * @author haoran
- */
+ */ 
+@import './theme.styl'
+
 :global
   html, body
     font-family 'Roboto-light'
     letter-spacing 0.6px
+    font-size px2rem(12)
 
   .abs
     position absolute
@@ -25,9 +28,5 @@
   .transition2
     transition opacity .3s ease
 
-  .iconfont
-    font-family "iconfont" !important
-    font-size 12px
-    font-style normal
-    -webkit-font-smoothing antialiased
-    -moz-osx-font-smoothing grayscale
+  h2 
+    font-size px2rem(48)
