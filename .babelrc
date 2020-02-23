@@ -34,6 +34,15 @@
 				"style": "css"
 			},
 			"antd-mobile"
+		],
+		[
+			"import",
+			{
+					"libraryName": "antd", 
+					"libraryDirectory": "lib",
+					"style": "css"
+			},
+			"ant"
 		]
 	]
 }

@@ -4,6 +4,7 @@ import Register from '../view/register/redux';
 import User from './user';
 import { chatuser } from '../components/usercard/index-redux';
 import Chat from '../view/chat/redux';
+import leftMenuTree from '../components/left-menu/index-redux';
 
 export default {
   NoMatch,
@@ -12,4 +13,5 @@ export default {
   Register,
   chatuser,
   Chat,
+  leftMenuTree,
 };
