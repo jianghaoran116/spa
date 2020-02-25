@@ -18,11 +18,8 @@ if (WEBPACK_DEV_SERVER) {
 }
 
 const config = {
-  detail: {
-    content: `${ioUri}api/detail`,
-  },
-  login: {
-    userlist: `${ioUri}user/list`,
+  course: {
+    list: `${ioUri}api/course/list`,
   },
 };
 

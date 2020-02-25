@@ -116,16 +116,7 @@ export function setImportComponent(key, preComponent) {
     switch (key) {
       case 'courselist':
         dispatch(setComponent(preComponent));
-        import(/* webpackChunkName: "course-list" */ '../course-list')
-          .then((rcomponent) => {
-            console.log(rcomponent);
-            dispatch(setComponent(rcomponent.default));
-          });
-        break;
-
-      case 'courseinfo':
-        dispatch(setComponent(preComponent));
-        import(/* webpackChunkName: "course-info" */ '../course-info')
+        import(/* webpackChunkName: "course" */ '../../view/course')
           .then((rcomponent) => {
             console.log(rcomponent);
             dispatch(setComponent(rcomponent.default));
