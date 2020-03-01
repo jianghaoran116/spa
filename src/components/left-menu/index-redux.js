@@ -17,8 +17,8 @@ const $$initState = Immutable.fromJS({
       isEnd: true,
     },
     {
-      code: 'courseinfo',
-      name: '课程信息',
+      code: 'teacherlist',
+      name: '教师列表',
       isEnd: true,
     },
   ],
@@ -117,6 +117,15 @@ export function setImportComponent(key, preComponent) {
       case 'courselist':
         dispatch(setComponent(preComponent));
         import(/* webpackChunkName: "course" */ '../../view/course')
+          .then((rcomponent) => {
+            console.log(rcomponent);
+            dispatch(setComponent(rcomponent.default));
+          });
+        break;
+
+      case 'teacherlist':
+        dispatch(setComponent(preComponent));
+        import(/* webpackChunkName: "teacher" */ '../../view/teacher')
           .then((rcomponent) => {
             console.log(rcomponent);
             dispatch(setComponent(rcomponent.default));

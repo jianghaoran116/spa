@@ -21,6 +21,9 @@ const config = {
   course: {
     list: `${ioUri}api/course/list`,
   },
+  teacher: {
+    list: `${ioUri}api/teacher/list`,
+  },
 };
 
 export default config;
