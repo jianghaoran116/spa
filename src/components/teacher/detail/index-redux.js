@@ -1,7 +1,7 @@
-// import axios from '../../base/axios';
-// import ioUri from '../../../config';
+import axios from '../../base/axios';
+import ioUri from '../../../config';
 
-// const courseUri = ioUri.course;
+const uploadUri = ioUri.upload;
 
 const PAGELOADSTATE = Symbol('PAGELOADSTATE');
 const SET_TEACHERDETAIL = Symbol('SET_TEACHERDETAIL');
@@ -105,5 +105,34 @@ export function descriptionContentChange(value, obj, idx) {
     const data = getState().Teacher.detail.teacherDescription.map(item => item);
     data[idx].content = value;
     dispath(setDescription(data));
+  };
+}
+
+function uploadImage(file) {
+  try {
+    const reqconfig = {
+      method: 'POST',
+      url: `${uploadUri}`,
+      data: {
+        img: JSON.stringify(file),
+      },
+    };
+    return axios(reqconfig);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+}
+
+export function uploadImageTask(file) {
+  return async () => {
+    const data = await uploadImage(file);
+    console.log(data);
+    return new Promise((resolve, reject) => {
+      if (data.code === 200) {
+        resolve();
+      } else {
+        reject(new Error('上传失败'));
+      }
+    });
   };
 }

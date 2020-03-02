@@ -24,6 +24,7 @@ const config = {
   teacher: {
     list: `${ioUri}api/teacher/list`,
   },
+  upload: `${ioUri}api/upload/img`,
 };
 
 export default config;
