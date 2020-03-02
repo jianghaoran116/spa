@@ -11,6 +11,7 @@ const $$initState = {
   loading: true,
   originalTeacherDetail: [],
   teacherDescription: [],
+  uploadUri,
 };
 
 export default function detailContent(state = $$initState, action) {

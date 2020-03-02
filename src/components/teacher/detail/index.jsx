@@ -76,17 +76,6 @@ class TeacherDetail extends Component {
     }
   };
 
-  uploadImg = (obj) => {
-    console.log('uploading.....');
-    console.log(obj);
-    return this.props.uploadImageTask(obj.file)
-      .then(() => true)
-      .catch((err) => {
-        message.error(err);
-        return false;
-      });
-  }
-
   addDescription = () => {
     this.props.addDescriptionTask();
   }
@@ -111,9 +100,9 @@ class TeacherDetail extends Component {
       },
     };
 
-    const { teacherDescription } = this.props;
+    const { teacherDescription, uploadUri } = this.props;
     const { imageUrl, uploadLoading } = this.state;
-
+    console.log(uploadUri);
     const uploadButton = (
       <div>
         <Icon type={uploadLoading ? 'loading' : 'plus'} />
@@ -132,15 +121,15 @@ class TeacherDetail extends Component {
               </Form.Item>
               <Form.Item label="头像">
                 <Upload
-                  name="avatar"
+                  name="img"
                   listType="picture-card"
                   className="avatar-uploader"
                   showUploadList={false}
-                  action={this.props.uploadUri}
+                  action={uploadUri}
                   method="post"
                   beforeUpload={this.beforeUpload}
                   onChange={this.handleChange}
-                  customRequest={this.uploadImg}
+                  headers={{ 'x-auth-token': '86d3456d-e927-4411-99f3-9f8337626533' }}
                 >
                   {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
                 </Upload>
