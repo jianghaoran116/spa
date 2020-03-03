@@ -5,15 +5,21 @@ const uploadUri = ioUri.upload;
 
 const PAGELOADSTATE = Symbol('PAGELOADSTATE');
 const SET_TEACHERDETAIL = Symbol('SET_TEACHERDETAIL');
+const UPDATE_NAME = Symbol('UPDATE_NAME');
+const UPDATE_IMAGEURL = Symbol('UPDATE_IMAGEURL');
 const SET_TEACHERDESCRIPTION = Symbol('SET_TEACHERDESCRIPTION');
 
+// init state
 const $$initState = {
   loading: true,
   originalTeacherDetail: [],
-  teacherDescription: [],
   uploadUri,
+  name: '',
+  imgUri: '',
+  teacherDescription: [],
 };
 
+// reducer
 export default function detailContent(state = $$initState, action) {
   switch (action.type) {
     case PAGELOADSTATE:
@@ -22,15 +28,25 @@ export default function detailContent(state = $$initState, action) {
         loading: action.playload,
       };
 
+    case UPDATE_NAME:
+      return {
+        ...state,
+        name: action.playload,
+      };
+
+    case UPDATE_IMAGEURL:
+      return {
+        ...state,
+        imgUri: action.playload,
+      };
+
     case SET_TEACHERDETAIL:
-      console.log(action);
       return {
         ...state,
         originalTeacherDetail: action.playload,
       };
 
     case SET_TEACHERDESCRIPTION:
-      console.log(action);
       return {
         ...state,
         teacherDescription: action.playload,
@@ -55,24 +71,27 @@ export function setTeacherDetail(data) {
   };
 }
 
-// function queryCourseDetail() {
-//   try {
-//     const reqconfig = {
-//       method: 'GET',
-//       url: `${courseUri.list}?limit=1&offset=10`,
-//     };
-//     return axios(reqconfig);
-//   } catch (err) {
-//     return Promise.reject(err);
-//   }
-// }
-
 export function getTeacherDetailTask() {
   return async () => new Promise((resolve) => {
     setTimeout(() => {
       resolve();
     }, 500);
   });
+}
+
+export function updateName(data) {
+  return {
+    type: UPDATE_NAME,
+    playload: data,
+  };
+}
+
+export function updateImageUrl(data) {
+  console.log(data);
+  return {
+    type: UPDATE_IMAGEURL,
+    playload: data,
+  };
 }
 
 export function setDescription(data) {
@@ -88,6 +107,7 @@ export function addDescriptionTask() {
     data.push({
       content: '',
       type: 0,
+      id: data.length,
     });
     dispath(setDescription(data));
   };
@@ -109,14 +129,32 @@ export function descriptionContentChange(value, obj, idx) {
   };
 }
 
-function uploadImage(file) {
+function updateTeacherDetailAsync(detail) {
   try {
+    const data = {};
+
+    if (detail.name) {
+      data.name = detail.name;
+    }
+
+    if (detail.imgUri) {
+      data.icon = detail.imgUri;
+    }
+
+    if (detail.teacherDescription && detail.teacherDescription.length > 0) {
+      data.description = [];
+      detail.teacherDescription.forEach(item => (
+        data.description.push({
+          type: item.type,
+          content: item.content,
+        })
+      ));
+    }
+
     const reqconfig = {
       method: 'POST',
-      url: `${uploadUri}`,
-      data: {
-        img: JSON.stringify(file),
-      },
+      url: `${ioUri.teacher.update}`,
+      data,
     };
     return axios(reqconfig);
   } catch (err) {
@@ -124,15 +162,15 @@ function uploadImage(file) {
   }
 }
 
-export function uploadImageTask(file) {
-  return async () => {
-    const data = await uploadImage(file);
-    console.log(data);
+export function updateTeacherDetailTask() {
+  return async (dispath, getState) => {
+    const { detail } = getState().Teacher;
+    const data = await updateTeacherDetailAsync(detail);
     return new Promise((resolve, reject) => {
-      if (data.code === 200) {
-        resolve();
+      if (data.status === 200) {
+        resolve(data);
       } else {
-        reject(new Error('上传失败'));
+        reject(new Error(data.msg ? data.msg : '保存失败'));
       }
     });
   };

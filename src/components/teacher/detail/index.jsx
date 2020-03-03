@@ -47,6 +47,10 @@ class TeacherDetail extends Component {
       .catch(err => console.log(err));
   }
 
+  onNameChange = (e) => {
+    this.props.updateName(e.target.value);
+  }
+
   getBase64 = (img, callback) => {
     const reader = new FileReader();
     reader.addEventListener('load', () => callback(reader.result));
@@ -66,6 +70,8 @@ class TeacherDetail extends Component {
   }
 
   handleChange = (info) => {
+    const { response } = info.file;
+
     if (info.file.status === 'uploading') {
       this.setState({ uploadLoading: true });
       return;
@@ -78,6 +84,12 @@ class TeacherDetail extends Component {
           uploadLoading: false,
         })
       ));
+    }
+    if (response.status === 200) {
+      this.props.updateImageUrl(response.data);
+      message.success(response.msg ? response.msg : '上传成功');
+    } else {
+      message.err(response.msg ? response.msg : '上传失败');
     }
   };
 
@@ -135,7 +147,7 @@ class TeacherDetail extends Component {
           <React.Fragment>
             <Form {...formItemLayout}>
               <Form.Item label="姓名">
-                <Input />
+                <Input onChange={(e) => { this.onNameChange(e); }} />
               </Form.Item>
               <Form.Item label="头像">
                 <Upload
@@ -157,7 +169,7 @@ class TeacherDetail extends Component {
                   teacherDescription.length > 0
                     ? teacherDescription.map((item, idx) => (
                       <Row
-                        key={item.content}
+                        key={item.id}
                       >
                         <Col className="gutter-row" span={20}>
                           <div className="gutter-box">

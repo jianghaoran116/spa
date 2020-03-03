@@ -7,16 +7,20 @@ import {
   Modal,
   Row,
   Col,
+  message,
 } from 'antd';
 import TeacherDetail from '../detail';
-import * as actions from './index-redux';
+import * as listActions from './index-redux';
+import * as detailActions from '../detail/index-redux';
 // import './index.styl';
 
 @connect(
   state => ({
     ...state.Teacher.list,
+    ...state.Teacher.detail,
   }), {
-    ...actions,
+    ...listActions,
+    ...detailActions,
   },
 )
 class TeacherList extends Component {
@@ -42,10 +46,16 @@ class TeacherList extends Component {
     });
   }
 
-  handleOk = () => {
-    this.setState({
-      visible: false,
-    });
+  handleOk = async () => {
+    const data = await this.props.updateTeacherDetailTask();
+    console.log(data);
+    if (data.status === 200) {
+      this.setState({
+        visible: false,
+      });
+    } else {
+      message.error(data.msg ? data.msg : '保存失败');
+    }
   }
 
   handleCancel = () => {
