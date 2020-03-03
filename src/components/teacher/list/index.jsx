@@ -5,6 +5,8 @@ import {
   Table,
   Button,
   Modal,
+  Row,
+  Col,
 } from 'antd';
 import TeacherDetail from '../detail';
 import * as actions from './index-redux';
@@ -58,15 +60,25 @@ class TeacherList extends Component {
         ? <Skeleton active />
         : (
           <React.Fragment>
-            <div>
-              教师列表
-              <Button
-                type="primary"
-                onClick={() => this.updateTecher()}
-              >
-                新增
-              </Button>
-            </div>
+            <Row gutter={[16, 16]}>
+              <Col className="gutter-row" span={6}>
+                <div className="gutter-box">
+                  <p>教师列表</p>
+                </div>
+              </Col>
+              <Col className="gutter-row" span={6} />
+              <Col className="gutter-row" span={6} />
+              <Col className="gutter-row" span={6}>
+                <div className="gutter-box" style={{ textAlign: 'right' }}>
+                  <Button
+                    type="primary"
+                    onClick={() => this.updateTecher()}
+                  >
+                    新增
+                  </Button>
+                </div>
+              </Col>
+            </Row>
             <Table
               rowKey="id"
               columns={

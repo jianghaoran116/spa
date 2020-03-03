@@ -8,9 +8,14 @@ import {
   Icon,
   Upload,
   message,
+  Row,
+  Col,
 } from 'antd';
 import * as actions from './index-redux';
+
 // import './index.styl';
+
+const { TextArea } = Input;
 
 @connect(
   state => ({
@@ -100,9 +105,22 @@ class TeacherDetail extends Component {
       },
     };
 
+    const tailFormItemLayout = {
+      wrapperCol: {
+        xs: {
+          span: 24,
+          offset: 0,
+        },
+        sm: {
+          span: 20,
+          offset: 4,
+        },
+      },
+    };
+
     const { teacherDescription, uploadUri } = this.props;
     const { imageUrl, uploadLoading } = this.state;
-    console.log(uploadUri);
+
     const uploadButton = (
       <div>
         <Icon type={uploadLoading ? 'loading' : 'plus'} />
@@ -138,27 +156,38 @@ class TeacherDetail extends Component {
                 {
                   teacherDescription.length > 0
                     ? teacherDescription.map((item, idx) => (
-                      <div
+                      <Row
                         key={item.content}
                       >
-                        <Input
-                          onChange={(e) => { this.descriptionContentChange(e, item, idx); }}
-                          value={item.content ? item.content : ''}
-                        />
-                        <Icon
-                          type="close-circle"
-                          onClick={() => { this.deleteDescription(item, idx); }}
-                        />
-                      </div>
+                        <Col className="gutter-row" span={20}>
+                          <div className="gutter-box">
+                            <TextArea
+                              onChange={(e) => { this.descriptionContentChange(e, item, idx); }}
+                              value={item.content ? item.content : ''}
+                            />
+                          </div>
+                        </Col>
+                        <Col className="gutter-row" span={1}>
+                          <div className="gutter-box" style={{ textAlign: 'right' }}>
+                            <Icon
+                              type="close-circle"
+                              style={{ fontSize: '18px', color: '#ff4d4f' }}
+                              onClick={() => { this.deleteDescription(item, idx); }}
+                            />
+                          </div>
+                        </Col>
+                      </Row>
                     ))
                     : '暂无简介'
                 }
               </Form.Item>
-              <Button
-                onClick={this.addDescription}
-              >
-                添加简介
-              </Button>
+              <Form.Item {...tailFormItemLayout}>
+                <Button
+                  onClick={this.addDescription}
+                >
+                  添加简介
+                </Button>
+              </Form.Item>
             </Form>
           </React.Fragment>
         )
