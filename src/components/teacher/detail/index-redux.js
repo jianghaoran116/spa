@@ -57,6 +57,10 @@ export default function detailContent(state = $$initState, action) {
   }
 }
 
+/**
+ * 设置页面是否加载完
+ * @param {boolean} data - 通过这个设置页面是否加载完
+ */
 export function loadTeacherPage(data) {
   return {
     type: PAGELOADSTATE,
@@ -87,7 +91,6 @@ export function updateName(data) {
 }
 
 export function updateImageUrl(data) {
-  console.log(data);
   return {
     type: UPDATE_IMAGEURL,
     playload: data,
@@ -151,9 +154,11 @@ function updateTeacherDetailAsync(detail) {
       ));
     }
 
+    data.id = 0;
+
     const reqconfig = {
       method: 'POST',
-      url: `${ioUri.teacher.update}`,
+      url: `${ioUri.teacher.add}`,
       data,
     };
     return axios(reqconfig);

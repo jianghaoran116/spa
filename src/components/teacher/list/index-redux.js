@@ -57,7 +57,7 @@ function queryTeacherList() {
   try {
     const reqconfig = {
       method: 'GET',
-      url: `${courseUri.list}?limit=1&offset=10`,
+      url: `${courseUri.list}?limit=0&offset=10`,
     };
     return axios(reqconfig);
   } catch (err) {

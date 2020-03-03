@@ -23,6 +23,7 @@ const config = {
   },
   teacher: {
     list: `${ioUri}api/teacher/list`,
+    add: `${ioUri}api/teacher/add`,
     update: `${ioUri}api/teacher/update`,
   },
   upload: `${ioUri}api/upload/img`,
