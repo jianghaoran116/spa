@@ -2,17 +2,22 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   Skeleton,
-  Table,
+  // Table,
   Button,
   Modal,
   Row,
   Col,
   message,
+  Card,
+  Avatar,
+  Icon,
 } from 'antd';
 import TeacherDetail from '../detail';
 import * as listActions from './index-redux';
 import * as detailActions from '../detail/index-redux';
-// import './index.styl';
+import './index.styl';
+
+const { Meta } = Card;
 
 @connect(
   state => ({
@@ -48,7 +53,7 @@ class TeacherList extends Component {
 
   handleOk = async () => {
     const data = await this.props.updateTeacherDetailTask();
-    console.log(data);
+
     if (data.status === 200) {
       this.setState({
         visible: false,
@@ -61,6 +66,14 @@ class TeacherList extends Component {
   handleCancel = () => {
     this.setState({
       visible: false,
+    });
+  }
+
+  editTeacher = (obj) => {
+    this.props.setTeacherDetail(obj);
+    this.props.initTeacherData();
+    this.setState({
+      visible: true,
     });
   }
 
@@ -89,7 +102,32 @@ class TeacherList extends Component {
                 </div>
               </Col>
             </Row>
-            <Table
+            <div styleName="list-wrap">
+              {
+                this.props.teacherList.map(item => (
+                  <div
+                    key={item.id}
+                  >
+                    <Card
+                      actions={[
+                        <Icon type="edit" key="edit" onClick={() => { this.editTeacher(item); }} />,
+                        <Icon type="delete" key="delete" />,
+                      ]}
+                    >
+                      <Meta
+                        avatar={
+                          <Avatar src={item.icon ? item.icon : ''} />
+                        }
+                        title={item.name ? item.name : ''}
+                        description={item.description[0] && item.description[0].content ? item.description[0].content : ''}
+                      />
+                    </Card>
+                  </div>
+                ))
+              }
+              <div />
+            </div>
+            {/* <Table
               rowKey="id"
               columns={
                 [
@@ -104,7 +142,7 @@ class TeacherList extends Component {
                 ]
               }
               dataSource={this.props.teacherList}
-            />
+            /> */}
             <Modal
               title="教师详情"
               width={1200}

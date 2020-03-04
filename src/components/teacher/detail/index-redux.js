@@ -5,6 +5,7 @@ const uploadUri = ioUri.upload;
 
 const PAGELOADSTATE = Symbol('PAGELOADSTATE');
 const SET_TEACHERDETAIL = Symbol('SET_TEACHERDETAIL');
+const UPDATE_ID = Symbol('UPDATE_ID');
 const UPDATE_NAME = Symbol('UPDATE_NAME');
 const UPDATE_IMAGEURL = Symbol('UPDATE_IMAGEURL');
 const SET_TEACHERDESCRIPTION = Symbol('SET_TEACHERDESCRIPTION');
@@ -12,8 +13,9 @@ const SET_TEACHERDESCRIPTION = Symbol('SET_TEACHERDESCRIPTION');
 // init state
 const $$initState = {
   loading: true,
-  originalTeacherDetail: [],
+  originalTeacherDetail: {},
   uploadUri,
+  id: '',
   name: '',
   imgUri: '',
   teacherDescription: [],
@@ -44,6 +46,12 @@ export default function detailContent(state = $$initState, action) {
       return {
         ...state,
         originalTeacherDetail: action.playload,
+      };
+
+    case UPDATE_ID:
+      return {
+        ...state,
+        id: action.playload,
       };
 
     case SET_TEACHERDESCRIPTION:
@@ -84,6 +92,13 @@ export function getTeacherDetailTask() {
 }
 
 export function updateName(data) {
+  return {
+    type: UPDATE_NAME,
+    playload: data,
+  };
+}
+
+export function updateId(data) {
   return {
     type: UPDATE_NAME,
     playload: data,
@@ -178,5 +193,12 @@ export function updateTeacherDetailTask() {
         reject(new Error(data.msg ? data.msg : '保存失败'));
       }
     });
+  };
+}
+
+export function initTeacherData() {
+  return (dispatch, getState) => {
+    const { originalTeacherDetail } = getState().Teacher.detail;
+    console.log(originalTeacherDetail);
   };
 }
