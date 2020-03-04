@@ -30,7 +30,7 @@ class TeacherDetail extends Component {
     super(props);
 
     this.state = {
-      imageUrl: '',
+      // imageUrl: '',
       uploadLoading: false,
     };
 
@@ -78,9 +78,8 @@ class TeacherDetail extends Component {
     }
     if (info.file.status === 'done') {
       // Get this url from response in real world.
-      this.getBase64(info.file.originFileObj, imageUrl => (
+      this.getBase64(info.file.originFileObj, () => (
         this.setState({
-          imageUrl,
           uploadLoading: false,
         })
       ));
@@ -130,8 +129,8 @@ class TeacherDetail extends Component {
       },
     };
 
-    const { teacherDescription, uploadUri } = this.props;
-    const { imageUrl, uploadLoading } = this.state;
+    const { teacherDescription, uploadUri, imgUri } = this.props;
+    const { uploadLoading } = this.state;
 
     const uploadButton = (
       <div>
@@ -146,10 +145,13 @@ class TeacherDetail extends Component {
         : (
           <React.Fragment>
             <Form {...formItemLayout}>
-              <Form.Item label="姓名">
-                <Input onChange={(e) => { this.onNameChange(e); }} />
+              <Form.Item label="教师姓名">
+                <Input
+                  onChange={(e) => { this.onNameChange(e); }}
+                  value={this.props.name}
+                />
               </Form.Item>
-              <Form.Item label="头像">
+              <Form.Item label="教师图片">
                 <Upload
                   name="img"
                   listType="picture-card"
@@ -161,10 +163,10 @@ class TeacherDetail extends Component {
                   onChange={this.handleChange}
                   headers={{ 'x-auth-token': '86d3456d-e927-4411-99f3-9f8337626533' }}
                 >
-                  {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+                  {imgUri ? <img src={imgUri} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
                 </Upload>
               </Form.Item>
-              <Form.Item label="简介">
+              <Form.Item label="教师简介">
                 {
                   teacherDescription.length > 0
                     ? teacherDescription.map((item, idx) => (
@@ -176,6 +178,7 @@ class TeacherDetail extends Component {
                             <TextArea
                               onChange={(e) => { this.descriptionContentChange(e, item, idx); }}
                               value={item.content ? item.content : ''}
+                              autoSize
                             />
                           </div>
                         </Col>

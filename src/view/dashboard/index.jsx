@@ -4,6 +4,10 @@
  */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {
+  ConfigProvider,
+} from 'antd';
+import zhCN from 'antd/es/locale/zh_CN';
 // import { NavBar } from 'antd-mobile';
 // import { Switch, Route } from 'react-router-dom';
 // import NavLinkBar from '../../components/navlink';
@@ -22,13 +26,6 @@ import { actions } from '../chat/redux';
   },
 )
 class Dashboard extends Component {
-  componentDidMount() {
-    if (!this.props.Chat.chat.chatmsg.length) {
-      this.props.getMsgList();
-      this.props.recvMsg();
-    }
-  }
-
   render() {
     // const { pathname } = this.props.location;
     // const { userContent: user } = this.props.User;
@@ -66,7 +63,9 @@ class Dashboard extends Component {
     // ];
 
     return (
-      <Layout />
+      <ConfigProvider locale={zhCN}>
+        <Layout />
+      </ConfigProvider>
     );
   }
 }

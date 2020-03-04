@@ -83,6 +83,13 @@ export function setTeacherDetail(data) {
   };
 }
 
+export function setId(data) {
+  return {
+    type: UPDATE_ID,
+    playload: data,
+  };
+}
+
 export function getTeacherDetailTask() {
   return async () => new Promise((resolve) => {
     setTimeout(() => {
@@ -150,6 +157,7 @@ export function descriptionContentChange(value, obj, idx) {
 function updateTeacherDetailAsync(detail) {
   try {
     const data = {};
+    let url = '';
 
     if (detail.name) {
       data.name = detail.name;
@@ -169,11 +177,16 @@ function updateTeacherDetailAsync(detail) {
       ));
     }
 
-    data.id = 0;
+    if (detail.id !== '') {
+      url = ioUri.teacher.update;
+      data.id = detail.id;
+    } else {
+      url = ioUri.teacher.add;
+    }
 
     const reqconfig = {
       method: 'POST',
-      url: `${ioUri.teacher.add}`,
+      url,
       data,
     };
     return axios(reqconfig);
@@ -185,7 +198,7 @@ function updateTeacherDetailAsync(detail) {
 export function updateTeacherDetailTask() {
   return async (dispath, getState) => {
     const { detail } = getState().Teacher;
-    const data = await updateTeacherDetailAsync(detail);
+    const { data } = await updateTeacherDetailAsync(detail);
     return new Promise((resolve, reject) => {
       if (data.status === 200) {
         resolve(data);
@@ -199,6 +212,46 @@ export function updateTeacherDetailTask() {
 export function initTeacherData() {
   return (dispatch, getState) => {
     const { originalTeacherDetail } = getState().Teacher.detail;
+    const {
+      id = '',
+      name = '',
+      icon = '',
+      description = [],
+    } = originalTeacherDetail;
+    const tempDesList = [];
+
     console.log(originalTeacherDetail);
+    dispatch(setId(id));
+    dispatch(updateName(name));
+    dispatch(updateImageUrl(icon));
+    description
+      .forEach((item, idx) => tempDesList.push({ id: idx, ...item }));
+    dispatch(setDescription(tempDesList));
+  };
+}
+
+
+function deleteTeacherAsync(id) {
+  try {
+    const reqconfig = {
+      method: 'GET',
+      url: `${ioUri.teacher.del}?id=${id}`,
+    };
+    return axios(reqconfig);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+}
+
+export function deleteTeacherTask(id) {
+  return async () => {
+    const { data } = await deleteTeacherAsync(id);
+    return new Promise((resolve, reject) => {
+      if (data.status === 200) {
+        resolve(data);
+      } else {
+        reject(new Error(data.msg ? data.msg : '删除失败'));
+      }
+    });
   };
 }

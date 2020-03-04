@@ -25,6 +25,7 @@ const config = {
     list: `${ioUri}api/teacher/list`,
     add: `${ioUri}api/teacher/add`,
     update: `${ioUri}api/teacher/update`,
+    del: `${ioUri}api/teacher/del`,
   },
   upload: `${ioUri}api/upload/img`,
 };

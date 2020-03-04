@@ -11,6 +11,8 @@ import {
   Card,
   Avatar,
   Icon,
+  Popconfirm,
+  Pagination,
 } from 'antd';
 import TeacherDetail from '../detail';
 import * as listActions from './index-redux';
@@ -44,8 +46,19 @@ class TeacherList extends Component {
       .catch(err => console.log(err));
   }
 
-  updateTecher = (record) => {
-    this.props.setSelectedTeacher(record);
+  queryTeacherList = () => {
+    this.props.loadTeacherPage(true);
+    this.props.getTeacherListTask()
+      .then((data) => {
+        this.props.loadTeacherPage(false);
+        this.props.setTeacherList(data);
+      })
+      .catch(err => console.log(err));
+  }
+
+  addTecher = () => {
+    this.props.setTeacherDetail({});
+    this.props.initTeacherData();
     this.setState({
       visible: true,
     });
@@ -55,6 +68,7 @@ class TeacherList extends Component {
     const data = await this.props.updateTeacherDetailTask();
 
     if (data.status === 200) {
+      this.queryTeacherList();
       this.setState({
         visible: false,
       });
@@ -69,7 +83,7 @@ class TeacherList extends Component {
     });
   }
 
-  editTeacher = (obj) => {
+  updateTeacher = (obj) => {
     this.props.setTeacherDetail(obj);
     this.props.initTeacherData();
     this.setState({
@@ -77,7 +91,39 @@ class TeacherList extends Component {
     });
   }
 
+  onPopCancel = () => {
+
+  }
+
+  onPopConfirm = async (id) => {
+    try {
+      await this.props.deleteTeacherTask(id);
+      message.success('删除成功');
+      this.queryTeacherList();
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  onPageChange = (page, pageSize) => {
+    console.log(page, pageSize);
+    this.props.setLimit(page);
+    this.props.setOffset(pageSize);
+
+    this.queryTeacherList();
+  }
+
+  onPageSizeChange = (current, size) => {
+    console.log(current, size);
+    this.props.setLimit(current);
+    this.props.setOffset(size);
+
+    this.queryTeacherList();
+  }
+
   render() {
+    const { total, limit, offset } = this.props;
+
     return (
       this.props.loading
         ? <Skeleton active />
@@ -95,7 +141,7 @@ class TeacherList extends Component {
                 <div className="gutter-box" style={{ textAlign: 'right' }}>
                   <Button
                     type="primary"
-                    onClick={() => this.updateTecher()}
+                    onClick={() => this.addTecher()}
                   >
                     新增
                   </Button>
@@ -110,8 +156,16 @@ class TeacherList extends Component {
                   >
                     <Card
                       actions={[
-                        <Icon type="edit" key="edit" onClick={() => { this.editTeacher(item); }} />,
-                        <Icon type="delete" key="delete" />,
+                        <Icon type="edit" key="edit" onClick={() => { this.updateTeacher(item); }} />,
+                        <Popconfirm
+                          title={`确定要删除老师 ${item.name} 吗?`}
+                          okText="确定"
+                          cancelText="取消"
+                          onCancel={() => { this.onPopCancel(); }}
+                          onConfirm={() => { this.onPopConfirm(item.id); }}
+                        >
+                          <Icon type="delete" key="delete" />
+                        </Popconfirm>,
                       ]}
                     >
                       <Meta
@@ -126,6 +180,17 @@ class TeacherList extends Component {
                 ))
               }
               <div />
+            </div>
+            <div style={{ textAlign: 'right' }}>
+              <Pagination
+                total={total}
+                current={limit}
+                pageSize={offset}
+                showSizeChanger
+                showQuickJumper
+                onChange={(page, pageSize) => { this.onPageChange(page, pageSize); }}
+                onShowSizeChange={(current, size) => { this.onPageSizeChange(current, size); }}
+              />
             </div>
             {/* <Table
               rowKey="id"
