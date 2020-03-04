@@ -39,6 +39,6 @@ module.exports = {
     // server_host_dev: 'http://localhost:9093/',
     'x-auth-token': '86d3456d-e927-4411-99f3-9f8337626533',
     server_host_dev: 'https://api.morningtogether.com/admin-service/',
-    server_host_prod: 'http://123.207.172.63:9093/',
+    server_host_prod: 'https://api.morningtogether.com/admin-service/',
   },
 };
