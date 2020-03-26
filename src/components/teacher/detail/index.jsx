@@ -161,7 +161,7 @@ class TeacherDetail extends Component {
                   method="post"
                   beforeUpload={this.beforeUpload}
                   onChange={this.handleChange}
-                  headers={{ 'x-auth-token': '86d3456d-e927-4411-99f3-9f8337626533' }}
+                  headers={{ 'x-auth-token': '2985d904-8830-4517-85b4-dac5b4a5301a' }}
                 >
                   {imgUri ? <img src={imgUri} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
                 </Upload>

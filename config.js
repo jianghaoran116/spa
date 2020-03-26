@@ -37,7 +37,7 @@ module.exports = {
   // request url
   io: {
     // server_host_dev: 'http://localhost:9093/',
-    'x-auth-token': '86d3456d-e927-4411-99f3-9f8337626533',
+    'x-auth-token': '2985d904-8830-4517-85b4-dac5b4a5301a',
     server_host_dev: 'https://api.morningtogether.com/admin-service/',
     server_host_prod: 'https://api.morningtogether.com/admin-service/',
   },

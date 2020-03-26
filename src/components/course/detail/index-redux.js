@@ -1,14 +1,21 @@
 // import axios from '../../base/axios';
-// import ioUri from '../../../config';
+import ioUri from '../../../config';
 
 // const courseUri = ioUri.course;
+const uploadUri = ioUri.upload;
 
 const PAGELOADSTATE = Symbol('PAGELOADSTATE');
+const SET_ORIGINALCOURSEDETAIL = Symbol('SET_ORIGINALCOURSEDETAIL');
 const SET_COURSEDETAIL = Symbol('SET_COURSEDETAIL');
 
 const $$initState = {
   loading: true,
-  courseDetail: [],
+  originalCourseDetail: {},
+  courseDetail: {},
+  uploadUri,
+  id: '',
+  name: '',
+  imgUri: '',
 };
 
 export default function detailContent(state = $$initState, action) {
@@ -19,8 +26,13 @@ export default function detailContent(state = $$initState, action) {
         loading: action.playload,
       };
 
+    case SET_ORIGINALCOURSEDETAIL:
+      return {
+        ...state,
+        originalCourseDetail: action.playload,
+      };
+
     case SET_COURSEDETAIL:
-      console.log(action);
       return {
         ...state,
         courseDetail: action.playload,
@@ -34,6 +46,13 @@ export default function detailContent(state = $$initState, action) {
 export function loadCoursePage(data) {
   return {
     type: PAGELOADSTATE,
+    playload: data,
+  };
+}
+
+export function setOriginalCourseDetail(data) {
+  return {
+    type: SET_ORIGINALCOURSEDETAIL,
     playload: data,
   };
 }
