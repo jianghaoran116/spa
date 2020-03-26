@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-return-assign */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
@@ -8,13 +10,16 @@ import {
 } from 'antd';
 import CourseDetail from '../detail';
 import * as actions from './index-redux';
+import * as detailActions from '../detail/index-redux';
 // import './index.styl';
 
 @connect(
   state => ({
     ...state.Course.list,
+    ...state.Course.detail,
   }), {
     ...actions,
+    ...detailActions,
   },
 )
 class CourseList extends Component {
@@ -34,7 +39,12 @@ class CourseList extends Component {
   }
 
   updateCourse = (record) => {
-    this.props.setSelectedCourse(record);
+    if (record.teachers) {
+      record.teachers.forEach(item => item.key = item.id);
+    }
+
+    this.props.setOriginalCourseDetail({ ...record });
+    this.props.setCourseDetail({ ...record });
     this.setState({
       visible: true,
     });

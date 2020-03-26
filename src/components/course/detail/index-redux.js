@@ -1,21 +1,21 @@
-// import axios from '../../base/axios';
+import axios from '../../base/axios';
 import ioUri from '../../../config';
 
 // const courseUri = ioUri.course;
+const teacherUri = ioUri.teacher;
 const uploadUri = ioUri.upload;
 
 const PAGELOADSTATE = Symbol('PAGELOADSTATE');
 const SET_ORIGINALCOURSEDETAIL = Symbol('SET_ORIGINALCOURSEDETAIL');
 const SET_COURSEDETAIL = Symbol('SET_COURSEDETAIL');
+const SET_TEACHERLIST = Symbol('SET_TEACHERLIST');
 
 const $$initState = {
   loading: true,
   originalCourseDetail: {},
   courseDetail: {},
   uploadUri,
-  id: '',
-  name: '',
-  imgUri: '',
+  teacherList: [],
 };
 
 export default function detailContent(state = $$initState, action) {
@@ -36,6 +36,13 @@ export default function detailContent(state = $$initState, action) {
       return {
         ...state,
         courseDetail: action.playload,
+      };
+
+    case SET_TEACHERLIST:
+      console.log(action.playload);
+      return {
+        ...state,
+        teacherList: action.playload,
       };
 
     default:
@@ -61,6 +68,38 @@ export function setCourseDetail(data) {
   return {
     type: SET_COURSEDETAIL,
     playload: data,
+  };
+}
+
+export function setTeacherList(data) {
+  return {
+    type: SET_TEACHERLIST,
+    playload: data,
+  };
+}
+
+function queryTeacherList() {
+  try {
+    const reqconfig = {
+      method: 'GET',
+      url: `${teacherUri.list}?limit=100&offset=1`,
+    };
+    return axios(reqconfig);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+}
+
+export function getTeacherListTask() {
+  return async () => {
+    const { data: listData } = await queryTeacherList();
+    return new Promise((resolve, reject) => {
+      if (listData.status === 200) {
+        resolve(listData.data);
+      } else {
+        reject(listData);
+      }
+    });
   };
 }
 
