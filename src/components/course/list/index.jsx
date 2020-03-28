@@ -43,8 +43,11 @@ class CourseList extends Component {
       record.teachers.forEach(item => item.key = item.id);
     }
 
+    console.log(record.summary);
     this.props.setOriginalCourseDetail({ ...record });
     this.props.setCourseDetail({ ...record });
+    this.props.setSummary([...(record.summary)]);
+    this.props.setDetail([...(record.detail)]);
     this.setState({
       visible: true,
     });

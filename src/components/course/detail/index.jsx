@@ -1,3 +1,7 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable prefer-destructuring */
 /* eslint-disable no-param-reassign */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -5,17 +9,19 @@ import {
   Skeleton,
   Form,
   Input,
-  // Button,
+  Button,
   Icon,
   Upload,
   Transfer,
   // message,
-  // Row,
-  // Col,
+  Row,
+  Col,
 } from 'antd';
 import * as actions from './index-redux';
 import './index.styl';
 // import './index.styl';
+
+const { TextArea } = Input;
 
 @connect(
   state => ({
@@ -31,6 +37,8 @@ class CourseDetail extends Component {
     this.state = {
       // imageUrl: '',
       uploadLoading: false,
+      selectSummaryIdx: -1,
+      selectDetailIdx: -1,
     };
 
     this.props.getTeacherListTask()
@@ -75,6 +83,40 @@ class CourseDetail extends Component {
     this.props.setCourseDetail({ ...courseDetail });
   }
 
+  updateSummary = (type) => {
+    const { selectSummaryIdx } = this.state;
+    this.props.addSummary(selectSummaryIdx, type);
+  }
+
+  deleteSummary = (idx) => {
+    this.props.deleteSummary(idx);
+  }
+
+  summaryChagne = (item, e, idx) => {
+    this.props.summaryChagne(item, e.target.value, idx);
+  }
+
+  summaryClick = (idx) => {
+    this.setState({
+      selectSummaryIdx: idx,
+    });
+  }
+
+  updateDetail = (type) => {
+    const { selectDetailIdx } = this.state;
+    this.props.addDetail(selectDetailIdx, type);
+  }
+
+  detailClick = (idx) => {
+    this.setState({
+      selectDetailIdx: idx,
+    });
+  }
+
+  detailChagne = (item, keyName, e, idx) => {
+    this.props.detailChagne(item, keyName, e.target.value, idx);
+  }
+
   render() {
     const formItemLayout = {
       labelCol: {
@@ -87,6 +129,12 @@ class CourseDetail extends Component {
       },
     };
 
+    const editorStyle = {
+      width: '600px',
+      maxHeight: '500px',
+      overflow: 'auto',
+    };
+
     const {
       name,
       uploadUri,
@@ -96,7 +144,11 @@ class CourseDetail extends Component {
 
     const {
       teacherList,
+      summary,
+      detail,
     } = this.props;
+
+    console.log(summary);
 
     const { uploadLoading } = this.state;
 
@@ -142,13 +194,165 @@ class CourseDetail extends Component {
                   titles={['', '本课程教师']}
                   dataSource={teacherList}
                   listStyle={{
-                    width: 300,
+                    width: 400,
                     height: 400,
                   }}
                   targetKeys={transferTargetKeys}
                   onChange={this.onSelectTeacherChange}
                   render={this.renderTeacherItem}
                 />
+              </Form.Item>
+              <Form.Item label="课程简介">
+                <Row>
+                  <Col span={6}>
+                    <Button
+                      onClick={() => this.updateSummary.call(this, 1)}
+                    >
+                      插入内容
+                    </Button>
+                    <Button
+                      onClick={() => this.updateSummary.call(this, 4)}
+                    >
+                      插入图片
+                    </Button>
+                  </Col>
+                  <Col span={18}>
+                    <div
+                      style={editorStyle}
+                    >
+                      {
+                        summary.map((item, idx) => {
+                          const contentArr = />(.+)</.exec(item.content);
+                          let contentStr = '';
+                          if (contentArr) {
+                            contentStr = contentArr[1];
+                          }
+                          if (item.type === 1) {
+                            return (
+                              <div
+                                styleName="summary-wrap"
+                                key={`summary-${idx}`}
+                              >
+                                <Icon
+                                  type="close-circle"
+                                  key="edit"
+                                  style={{ fontSize: '14px', color: '#ff4d4f' }}
+                                  onClick={() => { this.deleteSummary(idx); }}
+                                />
+                                <TextArea
+                                  onChange={(e) => { this.summaryChagne(item, e, idx); }}
+                                  value={contentStr}
+                                  onClick={() => { this.summaryClick(idx); }}
+                                  autoSize
+                                />
+                              </div>
+                            );
+                          }
+                          if (item.type === 4) {
+                            const imageUrl = item.content && item.content.url ? item.content.url : '';
+                            return (
+                              <div
+                                styleName="summary-wrap"
+                                key={`summary-${idx}`}
+                              >
+                                <Icon
+                                  type="close-circle"
+                                  key="edit"
+                                  style={{ fontSize: '14px', color: '#ff4d4f' }}
+                                  onClick={() => { this.deleteSummary(idx); }}
+                                />
+                                <Upload
+                                  name={`summary-${idx}-img`}
+                                  listType="picture-card"
+                                  className="avatar-uploader"
+                                  showUploadList={false}
+                                  action={uploadUri}
+                                  method="post"
+                                  beforeUpload={this.beforeUpload}
+                                  onChange={this.handleChange}
+                                  headers={{ 'x-auth-token': '2985d904-8830-4517-85b4-dac5b4a5301a' }}
+                                >
+                                  {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '375px' }} /> : uploadButton}
+                                </Upload>
+                              </div>
+                            );
+                          }
+                          return null;
+                        })
+                      }
+                    </div>
+                  </Col>
+                </Row>
+              </Form.Item>
+              <Form.Item label="课程详解">
+                <Row>
+                  <Col span={6}>
+                    <Button
+                      onClick={() => this.updateDetail.call(this, 1)}
+                    >
+                      插入内容
+                    </Button>
+                  </Col>
+                  <Col span={18}>
+                    <div
+                      style={editorStyle}
+                    >
+                      {
+                        detail.map((item, idx) => {
+                          if (item.type === 1) {
+                            const detailContent = item.content.split("<div class='course-explain-content'>");
+                            let title = '';
+                            const titleArr = /<span>(.*?)<\/span>/g.exec(detailContent[0]);
+                            let content = '';
+                            const contentArr = /<span>(.*?)<\/span>/g.exec(detailContent[1]);
+                            if (titleArr) {
+                              title = titleArr[1];
+                            }
+                            if (contentArr) {
+                              content = contentArr[1];
+                            }
+                            console.log(title);
+                            console.log(content);
+
+                            return (
+                              <div
+                                styleName="detail-wrap"
+                                key={`detail-${idx}`}
+                                onClick={() => { this.detailClick(idx); }}
+                              >
+                                <Icon
+                                  type="close-circle"
+                                  key="edit"
+                                  style={{ fontSize: '14px', color: '#ff4d4f' }}
+                                  onClick={() => { this.deleteDetail(idx); }}
+                                />
+                                <Input
+                                  onChange={(e) => { this.detailChagne(item, 'title', e, idx); }}
+                                  value={title}
+                                />
+                                <TextArea
+                                  onChange={(e) => { this.detailChagne(item, 'content', e, idx); }}
+                                  value={content}
+                                  autoSize
+                                />
+                              </div>
+                            );
+                          }
+                          // console.log(detailArr);
+                          // const contentArr = /<span>(.*?)<\/span>/g.exec(item.content);
+                          // console.log(contentArr);
+                          // let contentStr = '';
+                          // if (contentArr) {
+                          //   contentStr = contentArr[1];
+                          // }
+                          // console.log('------');
+                          // console.log(contentStr);
+                          return null;
+                        })
+                      }
+                    </div>
+                  </Col>
+                </Row>
               </Form.Item>
             </Form>
           </React.Fragment>

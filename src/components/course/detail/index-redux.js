@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 import axios from '../../base/axios';
 import ioUri from '../../../config';
 
@@ -9,6 +10,8 @@ const PAGELOADSTATE = Symbol('PAGELOADSTATE');
 const SET_ORIGINALCOURSEDETAIL = Symbol('SET_ORIGINALCOURSEDETAIL');
 const SET_COURSEDETAIL = Symbol('SET_COURSEDETAIL');
 const SET_TEACHERLIST = Symbol('SET_TEACHERLIST');
+const SET_SUMMARY = Symbol('SET_SUMMARY');
+const SET_DETAIL = Symbol('SET_DETAIL');
 
 const $$initState = {
   loading: true,
@@ -16,6 +19,8 @@ const $$initState = {
   courseDetail: {},
   uploadUri,
   teacherList: [],
+  summary: [],
+  detail: [],
 };
 
 export default function detailContent(state = $$initState, action) {
@@ -39,10 +44,21 @@ export default function detailContent(state = $$initState, action) {
       };
 
     case SET_TEACHERLIST:
-      console.log(action.playload);
       return {
         ...state,
         teacherList: action.playload,
+      };
+
+    case SET_SUMMARY:
+      return {
+        ...state,
+        summary: action.playload,
+      };
+
+    case SET_DETAIL:
+      return {
+        ...state,
+        detail: action.playload,
       };
 
     default:
@@ -74,6 +90,20 @@ export function setCourseDetail(data) {
 export function setTeacherList(data) {
   return {
     type: SET_TEACHERLIST,
+    playload: data,
+  };
+}
+
+export function setSummary(data) {
+  return {
+    type: SET_SUMMARY,
+    playload: data,
+  };
+}
+
+export function setDetail(data) {
+  return {
+    type: SET_DETAIL,
     playload: data,
   };
 }
@@ -121,4 +151,77 @@ export function getCourseDetailTask() {
       resolve();
     }, 500);
   });
+}
+
+export function summaryChagne(item, val, idx) {
+  return (dispath, getState) => {
+    const data = getState().Course.detail.summary;
+    data[idx].content = `<p>${val}</p>`;
+    dispath(setSummary(data));
+  };
+}
+
+export function addSummary(idx, type) {
+  return (dispath, getState) => {
+    const data = getState().Course.detail.summary;
+    if (idx === -1) {
+      data.push({ type, content: null });
+    } else {
+      data.splice(idx + 1, 0, { type, content: null });
+    }
+    dispath(setSummary(data));
+  };
+}
+
+export function deleteSummary(idx) {
+  return (dispath, getState) => {
+    const data = getState().Course.detail.summary;
+    data.splice(idx, 1);
+    dispath(setSummary(data));
+  };
+}
+
+export function addDetail(idx, type) {
+  return (dispath, getState) => {
+    const data = getState().Course.detail.detail;
+    if (idx === -1) {
+      data.push({ type, content: '' });
+    } else {
+      data.splice(idx + 1, 0, { type, content: '' });
+    }
+    dispath(setDetail(data));
+  };
+}
+
+export function detailChagne(item, keyName, val, idx) {
+  return (dispath, getState) => {
+    const data = getState().Course.detail.detail;
+    const itemContent = data[idx].content.split("<div class='course-explain-content'>");
+    let title = '';
+    const titleArr = /<span>(.*?)<\/span>/g.exec(itemContent[0]);
+    let content = '';
+    const contentArr = /<span>(.*?)<\/span>/g.exec(itemContent[1]);
+    if (titleArr) {
+      title = titleArr[1];
+    }
+    if (contentArr) {
+      content = contentArr[1];
+    }
+    if (keyName === 'title') {
+      title = val;
+    }
+    if (keyName === 'content') {
+      content = val;
+    }
+    data[idx].content = `<div class='course-explain-title'><span>${title}</span></div><div class='course-explain-content'><span>${content}</span></div>`;
+    dispath(setDetail(data));
+  };
+}
+
+export function deleteDetail(idx) {
+  return (dispath, getState) => {
+    const data = getState().Course.detail.detail;
+    data.splice(idx, 1);
+    dispath(setDetail(data));
+  };
 }
