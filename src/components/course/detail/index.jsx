@@ -13,9 +13,10 @@ import {
   Icon,
   Upload,
   Transfer,
-  // message,
+  message,
   Row,
   Col,
+  InputNumber,
 } from 'antd';
 import * as actions from './index-redux';
 import './index.styl';
@@ -117,6 +118,47 @@ class CourseDetail extends Component {
     this.props.detailChagne(item, keyName, e.target.value, idx);
   }
 
+  getBase64 = (img, callback) => {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => callback(reader.result));
+    reader.readAsDataURL(img);
+  }
+
+  beforeUpload = (file) => {
+    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+    if (!isJpgOrPng) {
+      message.error('You can only upload JPG/PNG file!');
+    }
+    const isLt10M = file.size / 1024 / 1024 < 10;
+    if (!isLt10M) {
+      message.error('Image must smaller than 10MB!');
+    }
+    return isJpgOrPng && isLt10M;
+  }
+
+  handleChange = (info, type, idx) => {
+    const { response } = info.file;
+
+    if (info.file.status === 'uploading') {
+      this.setState({ uploadLoading: true });
+      return;
+    }
+    if (info.file.status === 'done') {
+      // Get this url from response in real world.
+      this.getBase64(info.file.originFileObj, () => (
+        this.setState({
+          uploadLoading: false,
+        })
+      ));
+    }
+    if (response.status === 200) {
+      this.props.updateImageUrl(response.data, type, idx);
+      message.success(response.msg ? response.msg : '上传成功');
+    } else {
+      message.err(response.msg ? response.msg : '上传失败');
+    }
+  };
+
   render() {
     const formItemLayout = {
       labelCol: {
@@ -137,18 +179,30 @@ class CourseDetail extends Component {
 
     const {
       name,
-      uploadUri,
+      setting,
       cover,
       teachers,
+      time,
+      address,
+      age,
+      seats,
     } = this.props.courseDetail;
 
+    console.log('-------');
+    console.log(this.props.courseDetail);
+
     const {
+      uploadUri,
       teacherList,
       summary,
       detail,
     } = this.props;
 
-    console.log(summary);
+    const {
+      times,
+      everytime,
+      duration,
+    } = setting;
 
     const { uploadLoading } = this.state;
 
@@ -182,11 +236,87 @@ class CourseDetail extends Component {
                   action={uploadUri}
                   method="post"
                   beforeUpload={this.beforeUpload}
-                  onChange={this.handleChange}
+                  onChange={(info) => { this.handleChange(info, 'cover'); }}
                   headers={{ 'x-auth-token': '2985d904-8830-4517-85b4-dac5b4a5301a' }}
                 >
                   {cover ? <img src={cover} alt="avatar" style={{ width: '375px' }} /> : uploadButton}
                 </Upload>
+              </Form.Item>
+              <Form.Item label="上课时间">
+                <Input
+                  // onChange={(e) => { this.onNameChange(e); }}
+                  value={time}
+                />
+              </Form.Item>
+              <Form.Item label="课程设置">
+                <Row>
+                  <Col span={2}>
+                    课时:
+                  </Col>
+                  <Col span={22}>
+                    <Row>
+                      <Col span={6}>
+                        <InputNumber
+                          value={duration}
+                        />
+                        <span>节课/学年</span>
+                      </Col>
+                      <Col span={6}>
+                        <span>每节课为</span>
+                        <InputNumber
+                          value={everytime}
+                        />
+                        <span>课时</span>
+                      </Col>
+                      <Col span={6}>
+                        <InputNumber
+                          value={times}
+                        />
+                        <span>分钟/节课</span>
+                      </Col>
+                    </Row>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col span={2}>
+                    授课对象:
+                  </Col>
+                  <Col span={6}>
+                    <InputNumber
+                      value={age.min}
+                    />
+                    -
+                    <InputNumber
+                      value={age.max}
+                    />
+                    <Input
+                      value={age.tips}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col span={2}>
+                    班级容量:
+                  </Col>
+                  <Col span={6}>
+                    <InputNumber
+                      value={seats.min}
+                    />
+                    -
+                    <InputNumber
+                      value={seats.max}
+                    />
+                    <Input
+                      value={seats.tips}
+                    />
+                  </Col>
+                </Row>
+              </Form.Item>
+              <Form.Item label="地址">
+                <Input
+                  // onChange={(e) => { this.onNameChange(e); }}
+                  value={address}
+                />
               </Form.Item>
               <Form.Item label="教师">
                 <Transfer
@@ -262,14 +392,14 @@ class CourseDetail extends Component {
                                   onClick={() => { this.deleteSummary(idx); }}
                                 />
                                 <Upload
-                                  name={`summary-${idx}-img`}
-                                  listType="picture-card"
+                                  name="img"
+                                  listType={`summary-${idx}-card`}
                                   className="avatar-uploader"
                                   showUploadList={false}
                                   action={uploadUri}
                                   method="post"
                                   beforeUpload={this.beforeUpload}
-                                  onChange={this.handleChange}
+                                  onChange={(info) => { this.handleChange(info, 'summary', idx); }}
                                   headers={{ 'x-auth-token': '2985d904-8830-4517-85b4-dac5b4a5301a' }}
                                 >
                                   {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '375px' }} /> : uploadButton}
@@ -311,8 +441,6 @@ class CourseDetail extends Component {
                             if (contentArr) {
                               content = contentArr[1];
                             }
-                            console.log(title);
-                            console.log(content);
 
                             return (
                               <div

@@ -225,3 +225,22 @@ export function deleteDetail(idx) {
     dispath(setDetail(data));
   };
 }
+
+export function updateImageUrl(data, type, idx) {
+  return (dispath, getState) => {
+    if (type === 'summary') {
+      const summary = getState().Course.detail.summary;
+      summary[idx].content = {
+        url: data,
+      };
+      console.log('-------');
+      console.log(summary);
+      dispath(setSummary(summary));
+    }
+    if (type === 'cover') {
+      const courseDetail = getState().Course.detail.courseDetail;
+      courseDetail.cover = data;
+      dispath(setCourseDetail(courseDetail));
+    }
+  };
+}
