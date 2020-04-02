@@ -244,3 +244,11 @@ export function updateImageUrl(data, type, idx) {
     }
   };
 }
+
+export function onChangeInfo(key, val) {
+  return (dispath, getState) => {
+    const courseDetail = getState().Course.detail.courseDetail;
+    courseDetail[key] = val;
+    dispath(setCourseDetail(courseDetail));
+  };
+}

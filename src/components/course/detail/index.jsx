@@ -159,6 +159,20 @@ class CourseDetail extends Component {
     }
   };
 
+  onChange = (key, e, subkey) => {
+    if (key === 'seats' || key === 'setting' || key === 'age') {
+      const seats = { ...this.props.courseDetail[key] };
+      if (e.target) {
+        seats[subkey] = e.target.value;
+      } else {
+        seats[subkey] = e;
+      }
+      this.props.onChangeInfo(key, seats);
+    } else {
+      this.props.onChangeInfo(key, e.target.value);
+    }
+  }
+
   render() {
     const formItemLayout = {
       labelCol: {
@@ -178,18 +192,15 @@ class CourseDetail extends Component {
     };
 
     const {
-      name,
-      setting,
-      cover,
-      teachers,
-      time,
-      address,
-      age,
-      seats,
+      name = '',
+      setting = {},
+      cover = '',
+      teachers = [],
+      time = '',
+      address = '',
+      age = {},
+      seats = {},
     } = this.props.courseDetail;
-
-    console.log('-------');
-    console.log(this.props.courseDetail);
 
     const {
       uploadUri,
@@ -199,9 +210,9 @@ class CourseDetail extends Component {
     } = this.props;
 
     const {
-      times,
-      everytime,
-      duration,
+      times = 0,
+      everytime = 0,
+      duration = '',
     } = setting;
 
     const { uploadLoading } = this.state;
@@ -223,7 +234,7 @@ class CourseDetail extends Component {
             <Form {...formItemLayout}>
               <Form.Item label="课程名称">
                 <Input
-                  // onChange={(e) => { this.onNameChange(e); }}
+                  onChange={(e) => { this.onChange('name', e); }}
                   value={name}
                 />
               </Form.Item>
@@ -244,7 +255,7 @@ class CourseDetail extends Component {
               </Form.Item>
               <Form.Item label="上课时间">
                 <Input
-                  // onChange={(e) => { this.onNameChange(e); }}
+                  onChange={(e) => { this.onChange('time', e); }}
                   value={time}
                 />
               </Form.Item>
@@ -257,6 +268,7 @@ class CourseDetail extends Component {
                     <Row>
                       <Col span={6}>
                         <InputNumber
+                          onChange={(e) => { this.onChange('setting', e, 'duration'); }}
                           value={duration}
                         />
                         <span>节课/学年</span>
@@ -264,12 +276,14 @@ class CourseDetail extends Component {
                       <Col span={6}>
                         <span>每节课为</span>
                         <InputNumber
+                          onChange={(e) => { this.onChange('setting', e, 'everytime'); }}
                           value={everytime}
                         />
                         <span>课时</span>
                       </Col>
                       <Col span={6}>
                         <InputNumber
+                          onChange={(e) => { this.onChange('setting', e, 'times'); }}
                           value={times}
                         />
                         <span>分钟/节课</span>
@@ -283,13 +297,16 @@ class CourseDetail extends Component {
                   </Col>
                   <Col span={6}>
                     <InputNumber
+                      onChange={(e) => { this.onChange('age', e, 'min'); }}
                       value={age.min}
                     />
                     -
                     <InputNumber
+                      onChange={(e) => { this.onChange('age', e, 'max'); }}
                       value={age.max}
                     />
                     <Input
+                      onChange={(e) => { this.onChange('age', e, 'tips'); }}
                       value={age.tips}
                     />
                   </Col>
@@ -300,13 +317,16 @@ class CourseDetail extends Component {
                   </Col>
                   <Col span={6}>
                     <InputNumber
+                      onChange={(e) => { this.onChange('seats', e, 'min'); }}
                       value={seats.min}
                     />
                     -
                     <InputNumber
+                      onChange={(e) => { this.onChange('seats', e, 'max'); }}
                       value={seats.max}
                     />
                     <Input
+                      onChange={(e) => { this.onChange('seats', e, 'tips'); }}
                       value={seats.tips}
                     />
                   </Col>
@@ -314,7 +334,7 @@ class CourseDetail extends Component {
               </Form.Item>
               <Form.Item label="地址">
                 <Input
-                  // onChange={(e) => { this.onNameChange(e); }}
+                  onChange={(e) => { this.onChange('address', e); }}
                   value={address}
                 />
               </Form.Item>

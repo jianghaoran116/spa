@@ -73,6 +73,13 @@ class CourseList extends Component {
           <React.Fragment>
             <div>
               课程列表
+
+              <Button
+                type="primary"
+                onClick={() => this.updateCourse({ summary: [], detail: [] })}
+              >
+                添加课程
+              </Button>
             </div>
             <Table
               rowKey="id"
