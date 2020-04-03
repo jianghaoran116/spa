@@ -88,6 +88,7 @@ class CourseList extends Component {
   }
 
   handleCancel = () => {
+    this.props.setCourseDetail({});
     this.setState({
       visible: false,
     });

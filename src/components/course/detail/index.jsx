@@ -52,14 +52,6 @@ class CourseDetail extends Component {
       .catch(err => console.log(err));
   }
 
-  componentDidMount() {
-    console.log(1);
-  }
-
-  componentWillUnmount() {
-    console.log(2);
-  }
-
   renderTeacherItem = (item) => {
     const customLabel = (
       <span>
