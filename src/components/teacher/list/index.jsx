@@ -181,7 +181,7 @@ class TeacherList extends Component {
               }
               <div />
             </div>
-            <div style={{ textAlign: 'right' }}>
+            <div style={{ display: 'none', textAlign: 'right' }}>
               <Pagination
                 total={total}
                 current={limit}

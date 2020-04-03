@@ -2,9 +2,9 @@
 import axios from '../../base/axios';
 import ioUri from '../../../config';
 
-// const courseUri = ioUri.course;
 const teacherUri = ioUri.teacher;
 const uploadUri = ioUri.upload;
+const courseUri = ioUri.course;
 
 const PAGELOADSTATE = Symbol('PAGELOADSTATE');
 const SET_ORIGINALCOURSEDETAIL = Symbol('SET_ORIGINALCOURSEDETAIL');
@@ -112,7 +112,7 @@ function queryTeacherList() {
   try {
     const reqconfig = {
       method: 'GET',
-      url: `${teacherUri.list}?limit=100&offset=1`,
+      url: `${teacherUri.list}?limit=1000&offset=1`,
     };
     return axios(reqconfig);
   } catch (err) {
@@ -250,5 +250,53 @@ export function onChangeInfo(key, val) {
     const courseDetail = getState().Course.detail.courseDetail;
     courseDetail[key] = val;
     dispath(setCourseDetail(courseDetail));
+  };
+}
+
+function updateCourse(data, type) {
+  let url = '';
+  if (type === 'add') {
+    url = courseUri.add;
+  } else {
+    url = courseUri.update;
+  }
+  try {
+    const reqconfig = {
+      method: 'POST',
+      url,
+      data: {
+        ...data,
+      },
+    };
+    return axios(reqconfig);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+}
+
+export function updateDetail() {
+  return (dispath, getState) => {
+    const { courseDetail, detail, summary } = getState().Course.detail;
+    if (courseDetail.id === undefined) {
+      courseDetail.id = 0;
+      courseDetail.detail = detail;
+      courseDetail.summary = summary;
+      return updateCourse(courseDetail, 'add');
+    }
+    return updateCourse(courseDetail, 'update');
+  };
+}
+
+export function deleteCourse(id) {
+  return () => {
+    try {
+      const reqconfig = {
+        method: 'GET',
+        url: `${courseUri.del}?id=${id}`,
+      };
+      return axios(reqconfig);
+    } catch (err) {
+      return Promise.reject(err);
+    }
   };
 }

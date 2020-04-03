@@ -7,6 +7,8 @@ import {
   Table,
   Button,
   Modal,
+  message,
+  Popconfirm,
 } from 'antd';
 import CourseDetail from '../detail';
 import * as actions from './index-redux';
@@ -42,8 +44,6 @@ class CourseList extends Component {
     if (record.teachers) {
       record.teachers.forEach(item => item.key = item.id);
     }
-
-    console.log(record.summary);
     this.props.setOriginalCourseDetail({ ...record });
     this.props.setCourseDetail({ ...record });
     this.props.setSummary([...(record.summary)]);
@@ -53,10 +53,38 @@ class CourseList extends Component {
     });
   }
 
-  handleOk = () => {
-    this.setState({
-      visible: false,
-    });
+  handleOk = async () => {
+    const data = await this.props.updateDetail();
+    if (data.status === 200) {
+      this.setState({
+        visible: false,
+      });
+      this.props.getCourseListTask()
+        .then((res) => {
+          this.props.loadCoursePage(false);
+          this.props.setCourseList(res);
+        })
+        .catch(err => console.log(err));
+    } else {
+      message.error(data.message);
+    }
+  }
+
+  deleteCourse = async (id) => {
+    const data = await this.props.deleteCourse(id);
+    if (data.status === 200) {
+      this.setState({
+        visible: false,
+      });
+      this.props.getCourseListTask()
+        .then((res) => {
+          this.props.loadCoursePage(false);
+          this.props.setCourseList(res);
+        })
+        .catch(err => console.log(err));
+    } else {
+      message.error(data.message);
+    }
   }
 
   handleCancel = () => {
@@ -75,6 +103,7 @@ class CourseList extends Component {
               课程列表
 
               <Button
+                style={{ float: 'right' }}
                 type="primary"
                 onClick={() => this.updateCourse({ summary: [], detail: [] })}
               >
@@ -125,18 +154,31 @@ class CourseList extends Component {
                     render: (item, record) => (
                       <React.Fragment>
                         <Button
+                          style={{ margin: '0 20px 0 0' }}
                           type="primary"
                           onClick={() => this.updateCourse(record)}
                         >
                           编辑
                         </Button>
-                        {/* <Button type="danger">删除</Button> */}
+                        <Popconfirm
+                          title="确定要删除吗?"
+                          onConfirm={() => this.deleteCourse(record.id)}
+                          okText="Yes"
+                          cancelText="No"
+                        >
+                          <Button
+                            type="danger"
+                          >
+                            删除
+                          </Button>
+                        </Popconfirm>
                       </React.Fragment>
                     ),
                   },
                 ]
               }
               dataSource={this.props.courseList}
+              pagination={false}
             />
             <Modal
               title="课程详情"

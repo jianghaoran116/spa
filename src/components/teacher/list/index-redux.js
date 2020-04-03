@@ -99,10 +99,11 @@ export function setOffset(data) {
 }
 
 function queryTeacherList(limit, offset) {
+  console.log(limit, offset);
   try {
     const reqconfig = {
       method: 'GET',
-      url: `${courseUri.list}?limit=${(limit - 1)}&offset=${(offset - 1)}`,
+      url: `${courseUri.list}?limit=1000&offset=1`,
     };
     return axios(reqconfig);
   } catch (err) {
@@ -116,7 +117,6 @@ export function getTeacherListTask() {
     const { data: listData } = await queryTeacherList(limit, offset);
     return new Promise((resolve, reject) => {
       if (listData.status === 200) {
-        console.log(listData.total);
         dispatch(setTotal(listData.total));
         resolve(listData.data);
       } else {

@@ -19,7 +19,10 @@ if (WEBPACK_DEV_SERVER) {
 
 const config = {
   course: {
+    add: `${ioUri}api/course/add`,
+    update: `${ioUri}api/course/update`,
     list: `${ioUri}api/course/list`,
+    del: `${ioUri}api/course/del`,
   },
   teacher: {
     list: `${ioUri}api/teacher/list`,
