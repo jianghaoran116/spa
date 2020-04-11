@@ -260,6 +260,8 @@ function updateCourse(data, type) {
   } else {
     url = courseUri.update;
   }
+  console.log(123123);
+  console.log(data);
   try {
     const reqconfig = {
       method: 'POST',

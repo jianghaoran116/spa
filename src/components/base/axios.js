@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { Toast } from 'antd-mobile';
 
-import baseConfig from '../../../config';
-
 /**
  * 请求拦截器
  * 请求之前加上加载图和统一的头信息
@@ -14,7 +12,7 @@ axios.interceptors.request.use((config) => {
     ...config,
     headers: {
       'content-type': 'application/json',
-      'x-auth-token': baseConfig.io['x-auth-token'],
+      'x-auth-token': localStorage.getItem('token') ? localStorage.getItem('token') : '',
     },
   };
 }, err => Promise.reject(err));

@@ -4,9 +4,11 @@
  */
 import { combineReducers } from 'redux';
 import axios from '../components/base/axios';
-import utils from '../utils';
+// import utils from '../utils';
+import ioUri from '../config';
+// import baseConfig from '../../config';
 
-const { getRedirectPath } = utils;
+// const { getRedirectPath } = utils;
 
 const AUTH_SUCCESS = 'AUTH_SUCCESS';
 const ERROR_MSG = 'ERROR_MSG';
@@ -18,6 +20,7 @@ const initState = {
   msg: '', // 报错信息
   user: '',
   type: '',
+  token: '',
 };
 
 // reducer
@@ -27,8 +30,9 @@ export function userContent(state = initState, action) {
       return {
         ...state,
         msg: '',
-        redirectTo: getRedirectPath(action.payload),
-        ...action.payload,
+        // redirectTo: getRedirectPath(action.payload),
+        redirectTo: '/boss',
+        token: action.payload,
       };
     case LOAD_DATA:
       return {
@@ -45,15 +49,14 @@ export function userContent(state = initState, action) {
       return {
         ...initState,
         redirectTo: '/login',
+        token: '',
       };
     default:
       return state;
   }
 }
 
-function authSuccess(obj) {
-  const { pwd, ...data } = obj;
-  console.log(data);
+function authSuccess(data) {
   return {
     type: AUTH_SUCCESS,
     payload: data,
@@ -87,18 +90,28 @@ export function update(data) {
   };
 }
 export function login({ user, pwd }) {
-  if (!user || !pwd) {
-    return errorMsg('用户密码必须输入');
-  }
   return (dispatch) => {
-    axios.post('api/user/login', { user, pwd })
+    if (!user || !pwd) {
+      dispatch(errorMsg('用户名和密码必须输入'));
+      return false;
+    }
+    axios.post(`${ioUri.user.login}`, { userName: user, password: pwd })
       .then((res) => {
-        if (res.status === 200 && res.data.code === 0) {
-          dispatch(authSuccess(res.data.data));
+        console.log(res);
+        if (res.status === 200) {
+          if (res.data.status === 200) {
+            console.log(res.data.data.CurrentUser.authToken);
+            // baseConfig.io['x-auth-token'] = res.data.data.CurrentUser.authToken;
+            localStorage.setItem('token', res.data.data.CurrentUser.authToken);
+            dispatch(authSuccess(res.data.data.CurrentUser.authToken));
+          } else {
+            dispatch(errorMsg('用户名或密码错误'));
+          }
         } else {
-          dispatch(errorMsg(res.data.msg));
+          dispatch(errorMsg('网络错误'));
         }
       });
+    return true;
   };
 }
 

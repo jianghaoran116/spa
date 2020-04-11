@@ -156,7 +156,6 @@ class Point extends React.PureComponent {
 @connect(
   state => ({
     ...state.User.userContent,
-    ...state.Register.registerContent,
   }), {
     ...actions,
     ...userAction,
@@ -260,10 +259,14 @@ class LoginView extends Component {
 
         <div styleName="login-wrap">
           <div styleName="login-content">
+            <span style={{ fontSize: '12px', color: 'red', lineHeight: '20px' }}>
+              {this.props.msg ? this.props.msg : ''}
+            </span>
             <List>
               <InputItem
                 onChange={args => this.handleChange('user', args)}
                 value={user}
+                placeholder="请输入账号"
               >
                 用户
               </InputItem>
@@ -272,6 +275,7 @@ class LoginView extends Component {
                 onChange={args => this.handleChange('pwd', args)}
                 type="password"
                 value={pwd}
+                placeholder="请输入密码"
               >
                 密码
               </InputItem>
@@ -281,12 +285,6 @@ class LoginView extends Component {
               type="primary"
             >
               登录
-            </Button>
-            <Button
-              onClick={this.register}
-              type="primary"
-            >
-              注册
             </Button>
           </div>
         </div>

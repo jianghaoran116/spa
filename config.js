@@ -37,8 +37,10 @@ module.exports = {
   // request url
   io: {
     // server_host_dev: 'http://localhost:9093/',
-    'x-auth-token': '2985d904-8830-4517-85b4-dac5b4a5301a',
+    // 'x-auth-token': localStorage.getItem('token'),
     server_host_dev: 'https://api.morningtogether.com/admin-service/',
     server_host_prod: 'https://api.morningtogether.com/admin-service/',
+    login_adr_dev: 'https://api.morningtogether.com/auth-service/',
+    login_adr_prod: 'https://api.morningtogether.com/auth-service/',
   },
 };

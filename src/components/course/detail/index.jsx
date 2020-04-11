@@ -248,7 +248,7 @@ class CourseDetail extends Component {
                   method="post"
                   beforeUpload={this.beforeUpload}
                   onChange={(info) => { this.handleChange(info, 'cover'); }}
-                  headers={{ 'x-auth-token': '2985d904-8830-4517-85b4-dac5b4a5301a' }}
+                  headers={{ 'x-auth-token': localStorage.getItem('token') }}
                 >
                   {cover ? <img src={cover} alt="avatar" style={{ width: '375px' }} /> : uploadButton}
                 </Upload>
@@ -420,7 +420,7 @@ class CourseDetail extends Component {
                                   method="post"
                                   beforeUpload={this.beforeUpload}
                                   onChange={(info) => { this.handleChange(info, 'summary', idx); }}
-                                  headers={{ 'x-auth-token': '2985d904-8830-4517-85b4-dac5b4a5301a' }}
+                                  headers={{ 'x-auth-token': localStorage.getItem('token') }}
                                 >
                                   {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '375px' }} /> : uploadButton}
                                 </Upload>
